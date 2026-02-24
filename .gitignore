@@ -1,0 +1,40 @@
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Virtual environment folders (but not the project inside)
+djvenv/Lib/
+djvenv/Scripts/
+djvenv/Include/
+djvenv/share/
+djvenv/pyvenv.cfg
+djvenv/pip-selfcheck.json
+
+# Django
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
