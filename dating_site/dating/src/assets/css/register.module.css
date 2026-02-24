@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+.main_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+     background-color: white;
+     padding: 20px;
+     border-radius: 20px;
+     font-family: 'Nunito', sans-serif;
+     margin: 50px;
+}
+.image img{
+    max-width: 350px;
+    max-height: 580px;
+    border-radius:10px ;
+    object-fit: cover;
+}
+
+.form_wrapper {
+    width: 100%;
+    max-width: 350px; 
+   
+}
+.input {
+    width: 100%;
+    max-width: 320px;
+}
+.containerFluid{
+    background-color: #F0F0F0;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+.heading{
+    text-align: center;
+    padding-bottom: 15px;
+    font-size: 25px;
+}
+.form_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.main_wrapper{
+   
+    width: fit-content;
+}
+.form{
+    color: #333333;
+}
+.form button{
+    background-color:#333333 ;
+    color: white;
+    border: none;
+}
+.form button:hover{
+    background-color:#87CEFA ;
+    border: #333333;
+}
+.login a{
+   color: #87CEFA;
+}
+
+@media (max-width: 768px) {
+
+    .image{
+    display:none;
+}
+.main_wrapper{
+    
+    padding: 10px;   
+    padding: 20px;
+    margin: 0px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+ 
+}
+
+}
+.navbar{
+    width: 100%;
+}

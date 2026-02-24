@@ -1,0 +1,98 @@
+.container {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Sidebar for desktop */
+.sidebar {
+  width: 220px;
+  background: #ffffff;
+  border-right: 1px solid #e6e6e6;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 15px;
+  z-index: 100;
+}
+
+.sidebar h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+
+.sidebar a {
+  color: #555;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 10px 12px;
+  display: block;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.sidebar a:hover {
+  color: #e83e8c;
+  background: rgba(232, 62, 140, 0.1);
+}
+
+.sidebar a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background-color: #e83e8c;
+  transition: width 0.3s ease;
+}
+
+.sidebar a:hover::after {
+  width: 100%;
+}
+
+/* Mobile Offcanvas styling */
+.offcanvas {
+  width: 250px !important;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.offcanvas .offcanvas-header {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.offcanvas .offcanvas-title {
+  font-weight: 700;
+  color: #222;
+}
+
+.offcanvas .btn-close {
+  filter: invert(0.2);
+}
+
+.offcanvas .offcanvas-body {
+  padding: 0;
+}
+
+.offcanvas .offcanvas-body a {
+  color: #555;
+  font-weight: 500;
+  padding: 12px 16px;
+  display: block;
+  border-radius: 6px;
+  margin: 4px 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.offcanvas .offcanvas-body a:hover {
+  color: #e83e8c;
+  background: rgba(232, 62, 140, 0.1);
+}

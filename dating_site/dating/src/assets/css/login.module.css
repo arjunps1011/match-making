@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+   
+  
+}
+
+.wrapper {
+   max-width: 700px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+.image img{
+    border-radius: 10px;
+    object-fit: cover;
+}
+.form_container input{
+    
+    width: 100%;
+    background-color: #e7edf2;
+      min-width: 300px;  
+    max-width: 100%
+}
+main{
+    padding: 0px;
+    width: 100%!important;
+     background-color: #F0F0F0;
+    font-family: 'Nunito', sans-serif;
+      font-family: 700;
+      
+}
+.heading{
+    text-align: center;
+    padding-bottom: 15px;
+    font-size: 25px;
+}
+.outer_wrapper{
+       background-color: white;
+       
+    padding: 20px;
+    border-radius: 40px;
+}
+.register{
+    padding-top: 20px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    color: #333333;
+}
+.form button{
+    background-color:#333333 ;
+    color: white;
+    border: none;
+}
+.form button:hover{
+    background-color:#87CEFA ;
+    border: #333333;
+}
+.register a{
+   color: #87CEFA;
+}
+
+
+
+@media (max-width: 768px) {
+
+    .image{
+    display:none;
+}
+.outer_wrapper{
+    
+    padding: 10px;   
+    padding: 20px;
+ 
+}
+}
+
+.forget_pass{
+    padding: 5px;
+}
+.Button_container{
+    display: flex;
+    justify-content: space-between;
+}
+.forget_pass a{
+    text-decoration: none;
+}
+.googlelogin{
+    padding: 10px;
+}
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}

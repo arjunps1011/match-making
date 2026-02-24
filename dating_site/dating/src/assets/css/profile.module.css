@@ -1,0 +1,282 @@
+.container-fluid {
+    background: linear-gradient(135deg, #f9f7fa 0%, #f1f3f5 100%);
+    height: 100%;
+    padding: 15px;
+}
+
+.main_wrapper {
+    display: flex;
+    height: 100vh !important;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    
+
+}
+
+.main {
+    flex: 1;
+    padding: 25px;
+    background: #fefefe;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+}
+
+.header h1 {
+    font-size: clamp(26px, 3vw, 30px);
+    font-weight: 700;
+    color: #4a2c5e;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.profile,.hobbies_info,.name_info, .username_info, .email_info, .sex_info, .number_info {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f4e8f7;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile:hover,.hobbies_info:hover,.name_info:hover, .username_info:hover, .email_info:hover, .sex_info:hover, .number_info:hover {
+    background: #fdf4ff;
+    transform: translateX(5px);
+}
+
+.avatar,.name_label,.hobies_label,.username_label, .email_label, .sex_label, .number_label {
+    width: 140px;
+    font-size: clamp(15px, 1.6vw, 16px);
+    font-weight: 500;
+    color: #6b7280;
+    margin-right: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile_img img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #e9d5ff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile_img img:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.hobies_container{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.name, .username, .email, .sex, .number,.hobbies {
+    flex-wrap: wrap;
+    font-size: clamp(16px, 1.7vw, 18px);
+    font-weight: 400;
+    color: #2d3748;
+    letter-spacing: 0.3px;
+}
+
+.hoby{
+    background-color:#ec489a46;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.create_newpass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    margin-top: 20px;
+    border-top: 1px solid #e9d5ff;
+    border-bottom: 1px solid #e9d5ff;
+    background: linear-gradient(to right, #f9f0ff, #fff);
+}
+
+.newpass_content h2 {
+    font-size: clamp(22px, 2.5vw, 24px);
+    font-weight: 600;
+    color: #4a2c5e;
+    margin: 0 0 5px 0;
+}
+
+.newpass_content p {
+    font-size: clamp(14px, 1.5vw, 15px);
+    color: #7c6b8f;
+    margin: 0;
+}
+
+.profile-btn {
+    background: linear-gradient(45deg, #d81b60, #ec4899);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: clamp(15px, 1.6vw, 16px);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.profile-btn:hover {
+    background: linear-gradient(45deg, #c2185b, #d81b60);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+}
+
+.profile-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+.newpass_content h2 {
+  font-size: clamp(22px, 2.5vw, 24px);
+  font-weight: 600;
+  color: #4a2c5e;
+  margin: 0 0 5px 0;
+  letter-spacing: 0.5px;
+}
+
+.newpass_content p {
+  font-size: clamp(14px, 1.5vw, 15px);
+  color: #7c6b8f;
+  margin: 0;
+}
+
+
+.complaint_section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px;
+  margin-top: 30px;
+  background: linear-gradient(to bottom, #f9f0ff, #fff);
+  border: 1px solid #e9d5ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(216, 27, 96, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.complaint_section:hover {
+  box-shadow: 0 6px 20px rgba(216, 27, 96, 0.15);
+  transform: translateY(-3px);
+}
+
+.complaint_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #e9d5ff;
+}
+
+.complaint_textarea {
+  width: 100%;
+  min-height: 140px;
+  padding: 14px 16px;
+  border: 1px solid #e9d5ff;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: clamp(15px, 1.6vw, 16px);
+  color: #2d3748;
+  resize: vertical;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  
+}
+
+.complaint_textarea::placeholder {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.complaint_textarea:focus {
+  outline: none;
+  border-color: #d81b60;
+  box-shadow: 0 0 0 4px rgba(216, 27, 96, 0.15);
+}
+
+.complaint_submit button {
+  background: linear-gradient(45deg, #d81b60, #ec4899);
+  color: #ffffff;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-size: clamp(15px, 1.6vw, 16px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.complaint_submit button:hover {
+  background: linear-gradient(45deg, #c2185b, #d81b60);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+}
+
+
+
+
+
+@media (max-width: 767.98px) {
+    .container-fluid {
+        padding: 10px;
+    }
+
+    .main_wrapper {
+        flex-direction: column;
+        border-radius: 8px;
+    }
+
+    .main {
+        padding: 15px;
+        padding-top: 70px;
+    }
+
+    .header h1 {
+        font-size: clamp(22px, 2.8vw, 24px);
+    }
+
+    .profile, .name_info, .username_info, .email_info, .sex_info, .number_info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 0;
+    }
+
+    .avatar, .name_label, .username_label, .email_label, .sex_label, .number_label {
+        width: 100%;
+        margin-right: 0;
+        font-size: clamp(14px, 1.5vw, 15px);
+    }
+
+    .profile_img img {
+        width: 90px !important;
+        height: 90px !important;
+        border: 2px solid #e9d5ff;
+    }
+
+    .create_newpass {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+        padding: 15px 0;
+    }
+
+    .profile-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: clamp(14px, 1.5vw, 15px);
+    }
+}

@@ -1,0 +1,500 @@
+.main_container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7 0%, #ffe4e6 100%);
+  font-family: 'Poppins', sans-serif; 
+  position: relative;
+}
+
+
+.sub_container {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+.content_container{
+  background: white;
+  border-radius: 28px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 620px;
+  box-shadow: 0 25px 60px rgba(255, 107, 157, .15);
+  border: 1px solid #ffccd5;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.content_container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #ff8fab, #ff6b9d);
+  border-radius: 28px 28px 0 0;
+}
+
+.heading h4 {
+  font-size: 2.3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff8fab, #ff6b9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 .8rem;
+}
+.heading::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff8fab, #ff6b9d);
+  margin: 1rem auto 0;
+  border-radius: 3px;
+}
+
+.lookingfor h5 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin: 2.5rem 0 1.2rem;
+  font-weight: 600;
+}
+.gender_container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2.8rem;
+  width: 100%;
+}
+.gender {
+  flex: 1;
+}
+.gender button {
+  padding: 1rem 1.2rem;
+  border: 2.6px solid #ff8fab;
+  border-radius: 18px;
+  background: #fff5f7;
+  color: #ff6b9d;
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: all .3s ease;
+  cursor: pointer;
+  min-width: 110px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(255, 107, 157, .16);
+}
+.gender button:hover,
+.gender button.active {
+  background: linear-gradient(135deg, #ff8fab, #ff6b9d);
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(255, 107, 157, .3);
+}
+
+.findmatch_container { margin-top: 1.8rem; }
+.findmatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 2.8rem 0;
+}
+.log_user img,
+.user img {
+  width: 100%;
+  max-width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid #fff;
+  box-shadow: 0 14px 34px rgba(0,0,0,.2);
+  transition: transform .3s ease;
+}
+.log_user img:hover,
+.user img:hover { transform: scale(1.07); }
+
+.lottie {
+  filter: drop-shadow(0 5px 14px rgba(255, 107, 157, .3));
+}
+
+.search { margin: 2.4rem 0 1.8rem; }
+.search button {
+  background: linear-gradient(135deg, #ff8fab, #ff6b9d);
+  border: none;
+  padding: 1.2rem 3.2rem;
+  border-radius: 50px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  min-width: 250px;
+  box-shadow: 0 12px 30px rgba(255, 107, 157, .36);
+  transition: all .3s ease;
+  color: white;
+}
+.search button:hover {
+  background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(255, 107, 157, .46);
+}
+.search button:disabled {
+  background: #95a5a6;
+  transform: none;
+  box-shadow: 0 6px 16px rgba(149,165,166,.32);
+}
+
+.chat { margin-top: 1.6rem; }
+.chat button {
+  background: transparent;
+  color: #ff6b9d;
+  border: 2.6px solid #ff8fab;
+  padding: .9rem 2.6rem;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  min-width: 200px;
+  transition: all .3s ease;
+}
+.chat button:hover {
+  background: linear-gradient(135deg, #ff8fab, #ff6b9d);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(255, 107, 157, .26);
+}
+.lottiee1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0);
+  pointer-events: none;
+  overflow: hidden;
+}
+.sucess {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 320px;
+  background: white;
+  border-left: 6px solid #ff6b9d;
+  border-radius: 12px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 28px rgba(255, 107, 157, 0.25);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #2c3e50;
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideFadeIn 0.4s forwards, slideFadeOut 0.4s 2.6s forwards;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.notification {
+  position: absolute;
+  right: 90px;
+  top: 80px;
+  background-color: #fff;
+  width: 440px;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  font-family: 'Poppins', sans-serif;
+  z-index: 1000;
+}
+
+.notification_content_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 5px;
+  border-bottom: 1px solid #eee;
+  gap: 20px;
+  transition: background 0.2s;
+}
+
+.notification_content_container:last-child {
+  border-bottom: none;
+}
+
+.notification_content_container:hover {
+  background-color: #f5f5f5;
+}
+
+.user_details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification_image img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #d63384;
+}
+
+.notification_user_name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.times p {
+  font-size: 10px;
+  color: #888;
+  margin: 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.buttons button {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  min-width: 55px;
+  transition: transform 0.2s;
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+}
+
+.buttons .btn-primary {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.buttons .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.noRequests {
+  text-align: center;
+  padding: 15px;
+  color: #555;
+  font-size: 14px;
+}
+
+
+@keyframes slideFadeIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+@keyframes slideFadeOut {
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+
+.sucess::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff8fab, #ff6b9d);
+  width: 100%;
+  transform-origin: left;
+  animation: shrinkProgress 3s linear forwards; 
+}
+
+.dropdown_Container{
+ 
+  width: 100%;
+  padding: 15px;
+border-bottom: 1px solid rgba(0, 0, 0, 0.145);
+}
+.self_finding {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 440px;
+  max-height: 78vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.16), 0 12px 28px rgba(255,107,157,0.15);
+  border: 1px solid rgba(255,140,171,0.25);
+  z-index: 10000;
+  padding: 28px 24px 32px;
+  animation: slideDown 0.45s cubic-bezier(0.25,0.8,0.25,1) forwards;
+  font-family: 'Poppins', sans-serif;
+}
+
+.self_finding::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #ff8fab, #ff6b9d, #ff8fab);
+  border-radius: 24px 24px 0 0;
+}
+
+.self_finding h5 {
+  text-align: center;
+  margin: 0 0 28px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff8fab, #ff6b9d);
+  background-clip: text;
+}
+
+.self_finding .gender {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-bottom: 32px;
+}
+
+.self_finding .gender a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 46px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  transition: all 0.35s ease;
+  border: 4px solid transparent;
+}
+
+.self_finding .gender a:hover {
+  transform: translateY(-10px) scale(1.15);
+  box-shadow: 0 20px 40px rgba(255,107,157,0.3);
+}
+
+.notification_content_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff8fa 0%, #fff0f5 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(255,140,171,0.2);
+  box-shadow: 0 6px 18px rgba(255,107,157,0.1);
+  transition: all 0.3s ease;
+}
+
+.notification_content_container:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(255,107,157,0.22);
+  background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+}
+
+.notification_image img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.notification_user_name p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.buttons .btn-primary {
+  background: linear-gradient(135deg, #ff8fab, #ff6b9d);
+  border: none;
+  padding: 11px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: white;
+  box-shadow: 0 8px 20px rgba(255,107,157,0.35);
+  transition: all 0.3s ease;
+}
+
+.buttons .btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(255,107,157,0.45);
+}
+.find_button{
+  background-color: #d63384;
+  width: fit-content;
+  padding: 6px;
+  border-radius:10px;
+  transition: ease-in-out 0.3s;
+}
+.find_button a{
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.find_button:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 24px 50px rgba(255, 107, 157, 0.42);
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+
+
+
+@media (max-width: 480px) {
+  .self_finding {
+    top: 140px;
+  }
+}
+
+
+@keyframes shrinkProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .sub_container { padding: 1.8rem 1.2rem; border-radius: 22px; }
+  .heading h4 { font-size: 1.9rem; }
+  .lookingfor h5 { font-size: 1.1rem; margin: 2rem 0 1rem; }
+  .gender button { padding: .8rem .6rem; font-size: .95rem; min-width: 90px; }
+  .findmatch { gap: 1.2rem; margin: 2rem 0; }
+  .log_user img,
+  .user img {
+    max-width: 100px;
+    height: 100px;
+    border-width: 4px;
+  }
+  .lottie { width: 60px; height: 60px; }
+  .search button { padding: 1rem 2.2rem; font-size: 1.1rem; min-width: 200px; }
+  .chat button { padding: .75rem 2rem; font-size: .95rem; min-width: 180px; }
+}
+

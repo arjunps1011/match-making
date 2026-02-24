@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap');
+.section1 {
+height: calc(100vh - 56px);
+width: 100%;
+overflow: hidden;
+position: relative;
+}
+.section1 .image {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+.section1 img {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center;
+display: block;
+}
+.section1::after {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0));
+pointer-events: none;
+}
+.text{
+position: absolute;
+top: 30%;
+left: 9%;
+color: white;
+z-index: 1;
+font-family: 'Poppins', sans-serif;
+}
+.text h1{
+font-size: clamp(1.2rem, 4vw, 4rem);
+font-weight: 700;
+text-shadow: 0 1px 1px black;
+}
+.text p{
+font-size: 20px;
+font-size: clamp(0.6rem, 4vw, 1.3rem);
+}
+.btn button{
+border: none;
+padding: 10px;
+border-radius:7px;
+background-color: #00B7EB;
+color: white;
+transition: 0.3s ease;
+}
+.btn button:hover{
+background-color: #009ACD;
+transform: translateY(-3px);
+}
+.section2{
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+border-bottom: 5px solid rgb(18, 18, 143);
+}
+.content_wrapper{
+height: 100%;
+padding: 20px;
+}
+.sec2_image img {
+width: 100%;
+height: auto;
+max-width: 600px;
+object-fit: cover;
+display: block;
+border-radius: 10px;
+}
+.sec2_image{
+display: flex;
+align-items: center;
+height: 100%;
+}
+.content_text {
+padding: 20px;
+font-family: 'Poppins', sans-serif;
+}
+.sec2_mainhead h1 {
+font-size: clamp(2rem, 5vw, 2.5rem);
+font-weight: 700;
+}
+.sec2_mainhead p {
+font-size: clamp(1rem, 3vw, 1.2rem);
+color: gray;
+}
+.sec2_content {
+margin-bottom: 20px;
+}
+
+.contet_head h3 {
+font-size: clamp(1.5rem, 4vw, 2rem);
+font-weight: 700;
+color: #00B7EB;
+}
+.sec2_content p {
+font-size: clamp(0.8rem, 2.5vw, 1rem);
+color: gray;
+}
+.sec2_content{
+  display: flex;
+  gap: 20px;
+}
+.foot{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      padding: 70px;
+      font-family: 'Poppins', sans-serif;
+}
+.links a{
+  color: black;
+  text-decoration: none;
+  font-size: 17px;
+  margin-right: 20px;
+  padding-right: 10px;
+  border-right: 1px solid black;
+  font-family: 'Poppins', sans-serif;
+}
+.medias {
+  font-size: 35px;
+  display: flex;
+  gap: 10px;
+}
+.instagram{
+background-color: rgb(199, 97, 199);
+padding: 10px;
+color: white;
+max-height: 50px;
+display: flex;
+align-items: center;
+border-radius: 10px;
+transition: transform 0.3s ease ;
+}
+.instagram:hover{
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+.youtube{
+  background-color: red;
+padding: 10px;
+color: white;
+max-height: 50px;
+display: flex;
+align-items: center;
+border-radius: 10px;
+transition: transform 0.3s ease ;
+font-size: 28px;
+}
+.youtube:hover{
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+.footer{
+  text-align: center;
+}
+.foot_head h1{
+  font-weight: 900px;
+}
+#making{
+  color: darkblue;
+}
+.guidance {
+  background-color: #ffffff; 
+  padding: 32px 24px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0; 
+  margin-top: 40px;
+  
+}
+
+.guidance h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000000; 
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+
+
+.guidance_button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.guidance_button button {
+  background-color: #FF6F61;
+  border: 2px solid #FF6F61;
+  border-radius: 50px;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 111, 97, 0.3);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.guidance_button button a {
+  display: block;
+  padding: 14px 40px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.guidance_button button:hover {
+  background-color: #ffffff;
+  border: 2px solid #FF6F61;
+  box-shadow: 0 6px 16px rgba(255, 111, 97, 0.4);
+  transform: translateY(-2px);
+}
+
+.guidance_button button:hover a {
+  color: #FF6F61;
+}
+@media (max-width: 768px) {
+.content_wrapper {
+padding: 10px;
+}
+}
+@media (max-width: 576px) {
+.text {
+top: 15%;
+left: 5%;
+width: 90%;
+}
+.btn button {
+width: 100%;
+padding: 10px;
+}
+}

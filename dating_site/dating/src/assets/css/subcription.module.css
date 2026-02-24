@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    min-height: 100vh;
+    background: white;
+    position: relative;
+}
+.fullwrapping{
+    padding: 50px;
+}
+.lottie1 {
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
+    left: 40%;
+}
+
+.heading {
+    text-align: center;
+}
+
+.heading p {
+    margin: 3px;
+}
+
+#header {
+    color: grey;
+}
+
+.main_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 15px; 
+    border-bottom: 5px solid rgb(18, 18, 143);
+    overflow-x: auto; 
+    
+   
+ 
+}
+
+.free_sub,
+.premium_sub {
+    border-radius: 12px;
+    padding: 15px;
+    min-width: 250px; 
+    max-width: 300px; 
+    height: 100%;
+    max-height: 570px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+   
+ 
+    margin: 0 10px; 
+}
+
+.free_sub {
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+.premium_sub {
+    border: 2px solid #e50914;
+    background-color: #fff5f5;
+    color: #333;
+}
+
+.free_sub:hover,
+.premium_sub:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.head {
+    background: linear-gradient(135deg, #a0d4ff, #7bbfff, #e0f7ff, #c2e9fb);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.head h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.head p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.price,
+.voice,
+.find,
+.video_call,
+.chat_bot {
+    padding: 10px;
+    border-bottom: 1px solid rgb(177, 175, 175);
+}
+
+.chat_bot {
+    border-bottom: none;
+}
+
+.price p,
+.voice p,
+.find p,
+.video_call p,
+.chat_bot p {
+    margin: 0;
+}
+
+.button button {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    height: 40px;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.button button:hover {
+    background-color: #b00610;
+    transform: scale(1.05);
+}
+
+
+@media (min-width: 992px) {
+    .main_container {
+        flex-wrap: wrap; 
+        overflow-x: hidden; 
+       
+        justify-content: center;
+    }
+
+    .free_sub,
+    .premium_sub {
+        margin: 15px; 
+         
+    }
+   
+}
+@media (max-width: 768px) {
+     .lottie1{
+        display: none;
+    }
+    .main_container{
+        padding: 30px;
+    }
+}
+
+
+

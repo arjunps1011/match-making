@@ -1,0 +1,59 @@
+.foot{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      padding: 30px;
+      font-family: 'Poppins', sans-serif;
+      
+      
+}
+.medias {
+  font-size: 35px;
+  display: flex;
+  gap: 10px;
+}
+.footer_container{
+    background-color: white;
+    border-top: 3px solid rgb(7, 7, 126) ;
+}
+.instagram{
+background-color: rgb(199, 97, 199);
+padding: 10px;
+color: white;
+max-height: 50px;
+display: flex;
+align-items: center;
+border-radius: 10px;
+transition: transform 0.3s ease ;
+}
+.instagram:hover{
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+.youtube{
+  background-color: red;
+padding: 10px;
+color: white;
+max-height: 50px;
+display: flex;
+align-items: center;
+border-radius: 10px;
+transition: transform 0.3s ease ;
+font-size: 28px;
+}
+.youtube:hover{
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+.footer{
+  text-align: center;
+}
+.foot_head h1{
+  font-weight: 900px;
+}
+#making{
+  color: darkblue;
+}

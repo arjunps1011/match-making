@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap');
+
+.main_container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  min-width: 0;
+}
+
+.table_container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.table_wrapper {
+  width: 100%;
+  max-width: 1000px;
+  overflow-x: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  min-width: 800px;
+  margin: 0;
+  border-spacing: 0 10px;
+  border-collapse: separate;
+}
+
+.table_wrapper th {
+  font-size: clamp(12px, 2vw, 15px) !important;
+  background: #2d3748;
+  color: white;
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: none;
+  white-space: nowrap;
+}
+
+.table_wrapper td {
+  font-size: clamp(10px, 2vw, 14px) !important;
+  background: #ffffff;
+  padding: 14px 12px;
+  vertical-align: middle !important;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.table tbody tr {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table tbody tr:hover td {
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  min-width: 220px;
+}
+
+.image img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.details p {
+  margin: 0;
+  font-size: 14px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.users {
+  width: 100%;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.262);
+  padding: 10px;
+}
+
+.users a {
+  color: black;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+}
+
+.users a:hover {
+  background-color: black;
+  color: white;
+  transform: translateY(-4px);
+}
+
+.search {
+  max-width: 300px;
+  padding-right: 20px;
+}
+
+.search_container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+
+
+.table button {
+  border: none;
+}
+
+#btn {
+  font-size: 16px;
+  color: red;
+  background: none;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.filter {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter p {
+  margin: 0px;
+}
+
+.filter_container button {
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+}
+
+.filter_container button:hover {
+  background-color: black;
+  color: white;
+  transform: translateY(-4px);
+}
+
+.filter_details {
+  display: flex;
+  justify-content: flex-end;
+  right: 20px;
+  top: 100%;
+  margin-top: 8px;
+  z-index: 1000;
+}
+
+.filter_cnd {
+  max-width: 200px;
+  width: 100%;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: slideup 0.4s ease-in-out;
+}
+
+@keyframes slideup {
+  0% { transform: translateY(15px); }
+  70% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+.filter_cnd a {
+  font-size: clamp(14px, 2vw, 16px);
+  text-decoration: none;
+  color: black;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  padding: 6px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.filter_cnd a:hover {
+  color: grey;
+  transform: translateY(-4px);
+}
+
+.heading h2 {
+  font-size: clamp(20px, 2vw, 30px) !important;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .main_container {
+    flex-direction: column;
+    padding-top: 0;
+  }
+
+}
+

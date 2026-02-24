@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap');
+.main{
+    height: 100vh;
+    background-color:  #F0F0F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper{
+    max-width: 400px;
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(51, 49, 50, 0.4); 
+    font-family: 'Poppins', sans-serif;
+}
+
+.image img{
+    max-width: 150px;
+    border-radius: 10px;
+}
+.text p{
+    margin: 5px;
+   color: gray;
+    
+}
+.text h2{
+    padding: 10px;
+}
+.form button{
+    background-color:#333333 ;
+    color: white;
+    border: none;
+}
+.form button:hover{
+    background-color:#87CEFA ;
+    border: #333333;
+}
+
