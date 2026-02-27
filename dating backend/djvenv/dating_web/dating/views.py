@@ -32,10 +32,11 @@ from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta, time as dt_time
 import hmac
 import json
+import os
 
-GOOGLE_CLIENT_ID='789242498941-i6actrnh09u1sd7uhf9sjjjmk6ja0qcc.apps.googleusercontent.com'
-ADMIN_MAIL=('admin@gmail.com')
-ADMIN_PASS=('admin')
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+ADMIN_MAIL = 'admin@gmail.com'
+ADMIN_PASS = 'admin'
 
 @api_view(['POST'])
 def login(request):
@@ -273,7 +274,7 @@ def edit_profile(request):
 def chat_bot(request):
     user_message = request.data.get("message", "")
 
-    api_key = "vVmrzNPOojwW7xpC44JrCrI2Krp1N7n6t8iB7Qso"
+    api_key = os.getenv('COHERE_API_KEY')
     co = cohere.Client(api_key)
 
     response = co.chat(
@@ -769,8 +770,8 @@ def generate_zego_token(request):
     user_id_str = request.data.get('user_id', str(user.id))
     user_name = request.data.get('user_name', user.name)
     
-    app_id = 385838000
-    server_secret = "69cd56afce6ecf46017f2f6a90b17cc7"
+    app_id = int(os.getenv('APP_ID'))
+    server_secret = os.getenv('APP_CERTIFICATE')
     
     token_data = {
         'app_id': app_id,

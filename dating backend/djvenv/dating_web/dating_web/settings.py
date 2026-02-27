@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+n80vxa7$kfij+$z)fs-+ay&=@1zc+uk!4*-q^42@zfj+3)p)l'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -63,8 +66,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://localhost:5173",
 ]
 
-APP_ID = '385838000'
-APP_CERTIFICATE = "69cd56afce6ecf46017f2f6a90b17cc7"
+APP_ID = os.getenv('APP_ID')
+APP_CERTIFICATE = os.getenv('APP_CERTIFICATE')
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -74,12 +77,12 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 
-RAZORPAY_KEY_ID = "rzp_test_5NNlXRJbteyoDN"
-RAZORPAY_KEY_SECRET = "9qM2anj2XauBCOO10BM3MWTl"
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 
 
-EMAIL_HOST_USER = "arjunps2003.8@gmail.com"
-EMAIL_HOST_PASSWORD = "ysdv fpmq jzrn yybs"
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = 'Lax'
