@@ -6,3 +6,11 @@ python-dotenv
 whitenoise
 django-cors-headers
 djangorestframework
+python-dateutil
+google-auth
+razorpay
+cohere
+pandas
+matplotlib
+agora-token-builder
+Pillow
