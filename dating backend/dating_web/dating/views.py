@@ -33,6 +33,7 @@ from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta, time as dt_time
 import hmac
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 GOOGLE_CLIENT_ID=os.getenv('GOOGLE_CLIENT_ID')
 ADMIN_MAIL=os.getenv('ADMIN_MAIL')
@@ -959,19 +960,18 @@ def check_premium(request):
         return Response({'url':'/Subscription'},status=status.HTTP_404_NOT_FOUND)
     return Response({'message':'sucess'})
 
+@csrf_exempt
 @api_view(['POST'])
 def update_time(request):
     current_user_id=request.session.get('id')
-    print('current_id',current_user_id)
     if not current_user_id:
         return Response({'message':'user not found'},status=404)
     current_user=User_Registration.objects.filter(id=current_user_id).first()
     if not current_user:
         return Response({'message':'user not found'},status=404)
-    last_Active=timezone.now()
-    current_user.last_active=last_Active
+    current_user.last_active=timezone.now()
     current_user.save()
-    return Response('sucess')
+    return Response({'message':'success'})
 
 @api_view(['POST'])
 def check_online(request):
