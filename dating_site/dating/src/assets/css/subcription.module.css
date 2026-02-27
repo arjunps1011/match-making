@@ -153,7 +153,12 @@ body {
 }
 @media (max-width: 768px) {
      .lottie1{
-        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: block;
     }
     .main_container{
         padding: 30px;

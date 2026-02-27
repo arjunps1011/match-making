@@ -54,7 +54,7 @@ function App() {
   },[])
 
   return (
-    <>
+    <div style={{overflow: 'hidden', maxWidth: '100vw'}}>
     <Router>
       <Routes>
         <Route path='/' element={<Index/>}/>
@@ -75,8 +75,7 @@ function App() {
         <Route path='/Users_profile/:id' element={<Users_profile/>}/>
       </Routes>
     </Router>
- 
-    </>
+    </div>
   )
 }
 
