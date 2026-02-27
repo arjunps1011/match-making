@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
 import random 
+import os
 from .models import *
 from django.utils import timezone
 from dateutil import parser
@@ -32,11 +33,13 @@ from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta, time as dt_time
 import hmac
 import json
-import os
 
-GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
-ADMIN_MAIL = 'admin@gmail.com'
-ADMIN_PASS = 'admin'
+GOOGLE_CLIENT_ID=os.getenv('GOOGLE_CLIENT_ID')
+ADMIN_MAIL=os.getenv('ADMIN_MAIL')
+ADMIN_PASS=os.getenv('ADMIN_PASS')
+COHERE_API_KEY=os.getenv('COHERE_API_KEY')
+ZEGO_APP_ID=int(os.getenv('ZEGO_APP_ID', 0))
+ZEGO_SERVER_SECRET=os.getenv('ZEGO_SERVER_SECRET')
 
 @api_view(['POST'])
 def login(request):
@@ -57,6 +60,8 @@ def login(request):
     if user:
         if check_password(password,user.password):
             request.session['id']=user.id
+            request.session.save()
+            print(f"Session created for user {user.id}")
             return Response({'redirect':'/'})
             
         else:
@@ -192,6 +197,11 @@ def google_signup(request):
         return Response({'message': 'user already exists'},status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def logout(request):
+    request.session.flush()
+    return Response({'message': 'Logged out successfully'})
+
 @api_view(['post'])
 def google_login(request):
     token=request.data.get('token')
@@ -204,6 +214,7 @@ def google_login(request):
     if user:
         request.session.flush() 
         request.session['id']=user.id
+        request.session.save()
         print(user.id)
         return Response({'message': 'login successfully!'})
     else:
@@ -274,8 +285,7 @@ def edit_profile(request):
 def chat_bot(request):
     user_message = request.data.get("message", "")
 
-    api_key = os.getenv('COHERE_API_KEY')
-    co = cohere.Client(api_key)
+    co = cohere.Client(COHERE_API_KEY)
 
     response = co.chat(
         model="command-r-08-2024",
@@ -552,8 +562,11 @@ def get_chats(request):
 @api_view(['GET'])
 def current_user(request):
     user_id=request.session.get('id')
- 
+    if not user_id:
+        return Response({}, status=status.HTTP_401_UNAUTHORIZED)
     user=User_Registration.objects.filter(id=user_id).first()
+    if not user:
+        return Response({}, status=status.HTTP_404_NOT_FOUND)
     serializer=registerSerializer(user,many=False)
     return Response(serializer.data)
 
@@ -770,24 +783,21 @@ def generate_zego_token(request):
     user_id_str = request.data.get('user_id', str(user.id))
     user_name = request.data.get('user_name', user.name)
     
-    app_id = int(os.getenv('APP_ID'))
-    server_secret = os.getenv('APP_CERTIFICATE')
-    
     token_data = {
-        'app_id': app_id,
+        'app_id': ZEGO_APP_ID,
         'user_id': user_id_str,
         'user_name': user_name,
         'timestamp': int(time.time())
     }
     
-    token_string = f"{app_id}{user_id_str}{user_name}{token_data['timestamp']}{server_secret}"
+    token_string = f"{ZEGO_APP_ID}{user_id_str}{user_name}{token_data['timestamp']}{ZEGO_SERVER_SECRET}"
     token_hash = hashlib.md5(token_string.encode()).hexdigest()
     
     token = f"{token_data['timestamp']}:{token_hash}"
     
     return Response({
         'token': token,
-        'app_id': app_id,
+        'app_id': ZEGO_APP_ID,
         'user_id': user_id_str,
         'user_name': user_name
     })

@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import pymysql
+
+pymysql.version_info = (2, 2, 1, "final", 0)
+pymysql.install_as_MySQLdb()
 
 load_dotenv()
 
@@ -87,10 +91,12 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_DOMAIN = None
 
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_HTTPONLY = False
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173', 'http://localhost:5173']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -116,11 +122,14 @@ WSGI_APPLICATION = 'dating_web.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'matchmaking',        # your database name
+        'USER': 'root',               # your mysql username
+        'PASSWORD': 'arjunps',   # your mysql password
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 

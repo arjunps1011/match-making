@@ -43,12 +43,12 @@ function Finding_mate() {
     const [scrolimage, setScrollimage] = useState(null)
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/log_user/', { withCredentials: true })
+        axios.get('http://127.0.0.1:8000/current_user/', { withCredentials: true })
             .then((res) => {
                 setCurrentuser(res.data)
             })
             .catch((er) => {
-                alert(er.response?.data?.message || 'failed')
+                console.log(er)
             })
     }, [])
 
@@ -179,7 +179,7 @@ function Finding_mate() {
                             <div className={style.gender_container}>
                                 <div className={style.gender}>
                                     <button
-                                        className={looking === 'male'}
+                                        className={looking === 'male' ? style.active : ''}
                                         onClick={() => setLooking('male')}
                                     >
                                         Male
@@ -187,7 +187,7 @@ function Finding_mate() {
                                 </div>
                                 <div className={style.gender}>
                                     <button
-                                        className={looking === 'female'}
+                                        className={looking === 'female' ? style.active : ''}
                                         onClick={() => setLooking('female')}
                                     >
                                         Female

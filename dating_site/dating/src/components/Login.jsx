@@ -21,8 +21,7 @@ function Login() {
     e.preventDefault();
     axios.post('http://127.0.0.1:8000/', user, { withCredentials: true })
       .then((res) => {
-        
-        navigate(res.data.redirect);
+        window.location.href = res.data.redirect;
       })
       .catch((er) => {
         if (er.response?.data?.message) {
@@ -40,7 +39,7 @@ function Login() {
       axios.post('http://127.0.0.1:8000/google_login/', { token: credentialResponse.credential },{withCredentials:true})
       .then((res) => {
         alert(res.data.message);
-        navigate('/');
+        window.location.href = '/';
       })
       .catch((er) => {
         alert(er.response?.data?.message || 'login failed');

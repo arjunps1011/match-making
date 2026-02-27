@@ -119,7 +119,7 @@ function subscription() {
                   <p id={style.para}>Unlimited</p>
                 </div>
                 <div className={style.button}>
-                  <button onClick={()=>{Payment}}>buy now</button>
+                  <button onClick={Payment}>buy now</button>
                 </div>
               </div>
             </div>

@@ -20,11 +20,14 @@ function Navbar2() {
     function get_user() {
       axios.get('http://127.0.0.1:8000/current_user/', { withCredentials: true })
         .then((res) => {
-          setUser(res.data)
+          console.log('User data:', res.data)
+          console.log('Has username?', res.data.username)
+          if (res.data && (res.data.username || res.data.email || res.data.name)) {
+            setUser(res.data)
+          }
         })
         .catch((er) => {
-          console.log(er);
-
+          console.log('Error fetching user:', er);
         })
     }
     get_user()
@@ -68,6 +71,17 @@ function Navbar2() {
         console.log(er)
       })
   }
+
+  function logout() {
+    axios.post('http://127.0.0.1:8000/logout/', {}, { withCredentials: true })
+      .then((res) => {
+        setUser(null)
+        window.location.href = '/'
+      })
+      .catch((er) => {
+        console.log(er)
+      })
+  }
   useEffect(() => { fetch_request() }, [])
   return (
     <Navbar expand="lg" className={style.customNavbar}>
@@ -77,26 +91,28 @@ function Navbar2() {
         <Navbar.Collapse id="navbar-nav">
           <Nav className={style.navLeft}>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            {!user ? (
+            {!user && (
               <>
                 <Nav.Link as={Link} to="/Login">Login</Nav.Link>
                 <Nav.Link as={Link} to="/Register">Register</Nav.Link>
               </>
-            ) : (
+            )}
+            {user && (
               <>
               <Nav.Link as={Link} to="/Subscription">Subscription</Nav.Link>
               <Nav.Link as={Link} to="/Finding_mate">Find Mate</Nav.Link>
+              <Nav.Link onClick={logout}>Logout</Nav.Link>
               </>
             )}
           </Nav>
           <Nav className={style.navRight}>
-            <Nav.Link className="ms-3" onClick={() => { setBool(!bool) }}><FontAwesomeIcon icon={faBell} /></Nav.Link>
-            <Nav.Link className="ms-3" as={Link} to='/Chat'><i class="fa fa-comments"></i></Nav.Link>
-
             {user && (
-              <Nav.Link as={Link} to="/Self_profile" id={style.img}><img src={`http://127.0.0.1:8000${user.profile}`} alt="" style={{ width: '50px' }} /></Nav.Link>
+              <>
+                <Nav.Link className="ms-3" onClick={() => { setBool(!bool) }}><FontAwesomeIcon icon={faBell} /></Nav.Link>
+                <Nav.Link className="ms-3" as={Link} to='/Chat'><i className="fa fa-comments"></i></Nav.Link>
+                <Nav.Link as={Link} to="/Self_profile" id={style.img}><img src={`http://127.0.0.1:8000${user.profile}`} alt="" style={{ width: '50px' }} /></Nav.Link>
+              </>
             )}
-
           </Nav>
           {bool && (
             <div className={style.notification}>

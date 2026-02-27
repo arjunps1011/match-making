@@ -1,41 +1,44 @@
+# Environment variables
+.env
+*.env
+
 # Python
-*.pyc
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
 env/
+venv/
 ENV/
-*.egg-info/
-dist/
-build/
-
-# Virtual environment folders (but not the project inside)
-djvenv/Lib/
-djvenv/Scripts/
-djvenv/Include/
-djvenv/share/
-djvenv/pyvenv.cfg
-djvenv/pip-selfcheck.json
+djvenv/
 
 # Django
 *.log
 db.sqlite3
-media/
-staticfiles/
-.env
+db.sqlite3-journal
+/media
+/staticfiles
 
 # Node
 node_modules/
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Build
+dist/
+build/
+*.egg-info/

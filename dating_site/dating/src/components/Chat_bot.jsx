@@ -36,7 +36,7 @@ function ChatBot() {
     };
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             <Navbar2/>
             <div className={style.container}>
                 <div className={style.chat}>
