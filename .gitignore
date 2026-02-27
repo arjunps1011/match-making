@@ -24,6 +24,7 @@ djvenv/pip-selfcheck.json
 db.sqlite3
 media/
 staticfiles/
+.env
 
 # Node
 node_modules/
