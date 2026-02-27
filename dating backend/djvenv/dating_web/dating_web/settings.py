@@ -13,10 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import pymysql
-
-pymysql.version_info = (2, 2, 1, "final", 0)
-pymysql.install_as_MySQLdb()
 
 load_dotenv()
 
@@ -123,15 +119,16 @@ WSGI_APPLICATION = 'dating_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'matchmaking',        # your database name
-        'USER': 'root',               # your mysql username
-        'PASSWORD': 'arjunps',   # your mysql password
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'matchmaking',           # your database name
+        'USER': 'postgres',               # your PostgreSQL user
+        'PASSWORD': 'arjunachu',  # password you set during install
+        'HOST': 'localhost',
+        'PORT': '5432',                   # default PostgreSQL port
     }
 }
+
 
 
 # Password validation

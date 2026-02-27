@@ -38,6 +38,7 @@ function Register() {
                 axios.post('http://127.0.0.1:8000/google_signup/',{token:credentialResponse.credential})
                 .then((res)=>{
                     alert (res.data.message)
+                    navigate('/Login')
                 })
                 .catch((er)=>{
                     if (er.response){
