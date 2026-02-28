@@ -435,8 +435,8 @@ useEffect(() => {
         if (res.data.call && !incomingCall && !currentCall && !outgoingCall) {
           setIncomingCall(res.data.call);
         }
-      }).catch(console.error);
-    }, 2000);
+      }).catch(()=>{});
+    }, 5000);
     return () => clearInterval(interval);
   }, [currentuser, incomingCall, currentCall, outgoingCall]);
 
@@ -458,7 +458,7 @@ useEffect(() => {
           setOutgoingCall(null);
         }
       }).catch(() => setOutgoingCall(null));
-    }, 2000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [outgoingCall]);
 
@@ -466,8 +466,9 @@ useEffect(() => {
     if (!otheruserid) return;
     const interval = setInterval(() => {
       axios.post(`${import.meta.env.VITE_API_URL}/get_chats/`, { otheruserid }, { withCredentials: true })
-        .then(res => setAllmessage(res.data));
-    }, 3000);
+        .then(res => setAllmessage(res.data))
+        .catch(()=>{});
+    }, 5000);
     return () => clearInterval(interval);
   }, [otheruserid]);
 

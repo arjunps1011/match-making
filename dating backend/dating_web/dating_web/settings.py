@@ -131,7 +131,7 @@ WSGI_APPLICATION = 'dating_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.parse(os.getenv("DATABASE_URL"))
+    'default': dj_database_url.parse(os.getenv("DATABASE_URL"), conn_max_age=600)
 }
 
 

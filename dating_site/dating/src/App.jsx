@@ -25,32 +25,9 @@ function App() {
     useEffect(()=>{
   const timer=setInterval(()=>{
     axios.post(`${import.meta.env.VITE_API_URL}/update_time/`,{},{withCredentials:true})
-    .then((res)=>{
-      console.log('sucess');
-      
-    })
-    .catch((er)=>{
-      console.log(er);
-      
-    })
-
-  },10000)
+    .catch(()=>{})
+  },30000)
   return()=>{clearInterval(timer)}
-  },[])
-
-  useEffect(()=>{
-    const timer=setInterval(()=>{
-      axios.post(`${import.meta.env.VITE_API_URL}/check_online/`,{},{withCredentials:true})
-      .then((res)=>{
-        console.log('sucess');
-        
-      })
-      .catch((er)=>{
-        console.log('er');
-        
-      })
-    },4000)
-    return()=>{clearInterval(timer)}
   },[])
 
   return (

@@ -1,0 +1,1 @@
+web: cd dating_web && gunicorn dating_web.wsgi:application --config ../gunicorn_config.py

@@ -965,30 +965,31 @@ def check_premium(request):
 def update_time(request):
     current_user_id=request.session.get('id')
     if not current_user_id:
-        return Response({'message':'user not found'},status=404)
-    current_user=User_Registration.objects.filter(id=current_user_id).first()
-    if not current_user:
-        return Response({'message':'user not found'},status=404)
-    current_user.last_active=timezone.now()
-    current_user.save()
-    return Response({'message':'success'})
+        return Response({'status':'ok'},status=200)
+    User_Registration.objects.filter(id=current_user_id).update(
+        last_active=timezone.now(),
+        isonline='online'
+    )
+    return Response({'status':'ok'})
 
 @api_view(['POST'])
 def check_online(request):
     users = User_Registration.objects.all()
     threshold = timedelta(minutes=5)
+    now = timezone.now()
+    to_update = []
 
     for user in users:
-        print('user',user.last_active)
-       
-        if user.last_active:
-            if timezone.now() - user.last_active >= threshold:
-                user.isonline = 'offline'
-            else:
-                user.isonline = 'online'
+        old_status = user.isonline
+        if user.last_active and now - user.last_active < threshold:
+            user.isonline = 'online'
         else:
-         
             user.isonline = 'offline'
-
-        user.save()
-    return Response('message')
+        
+        if old_status != user.isonline:
+            to_update.append(user)
+    
+    if to_update:
+        User_Registration.objects.bulk_update(to_update, ['isonline'])
+    
+    return Response({'status': 'ok'})
