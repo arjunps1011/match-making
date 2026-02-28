@@ -15,7 +15,7 @@ function Self_profile() {
     let [complaint,setComplaint]=useState('')
 
     function profile_data() {
-        axios.get('http://127.0.0.1:8000/profile_view/', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_API_URL}/profile_view/`, { withCredentials: true })
             .then((res) => {
                 setUser(res.data)
             })
@@ -29,7 +29,7 @@ function Self_profile() {
     }
 
     function complaints(){
-        axios.post('http://127.0.0.1:8000/user_complaints/',{complaints:complaint},{withCredentials:true})
+        axios.post(`${import.meta.env.VITE_API_URL}/user_complaints/`,{complaints:complaint},{withCredentials:true})
         .then((res)=>{
             alert(res.data.message)
         })
@@ -65,7 +65,7 @@ function Self_profile() {
                             <p>Avatar</p>
                         </div>
                         <div className={style.profile_img}>
-                            <img src={user.profile ? `http://127.0.0.1:8000${user.profile}` : '/default_profile.jpg'} alt="" style={{ width: '130px', borderRadius: '50%' }} />
+                            <img src={user.profile ? `${import.meta.env.VITE_API_URL}${user.profile}` : '/default_profile.jpg'} alt="" style={{ width: '130px', borderRadius: '50%' }} />
                         </div>
                     </div>
                     <div className={style.name_info}>

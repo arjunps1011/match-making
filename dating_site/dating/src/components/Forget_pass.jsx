@@ -23,7 +23,7 @@ function Otp() {
 
   function submit(e){
     e.preventDefault();
-    axios.post('http://127.0.0.1:8000/forgetpass/',email,{withCredentials:true})
+    axios.post(`${import.meta.env.VITE_API_URL}/forgetpass/`,email,{withCredentials:true})
     .then((res)=>{
       setMesage(res.data.message)
       

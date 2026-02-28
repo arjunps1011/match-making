@@ -43,7 +43,7 @@ function Finding_mate() {
     const [scrolimage, setScrollimage] = useState(null)
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/current_user/', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
             .then((res) => {
                 setCurrentuser(res.data)
             })
@@ -79,7 +79,7 @@ function Finding_mate() {
 
         setTimeout(() => {
             clearInterval(interval)
-            axios.post('http://127.0.0.1:8000/mate_finding/', { looking }, { withCredentials: true })
+            axios.post(`${import.meta.env.VITE_API_URL}/mate_finding/`, { looking }, { withCredentials: true })
                 .then((res) => {
                     setMatchuser(res.data.match_user)
                     setLoading(false)
@@ -91,7 +91,7 @@ function Finding_mate() {
         }, 5000)
     }
     function send_Request(user) {
-        axios.post('http://127.0.0.1:8000/send_request/', { user }, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/send_request/`, { user }, { withCredentials: true })
 
             .then((res) => {
                 setSucessmsg(res.data.message)
@@ -105,7 +105,7 @@ function Finding_mate() {
 
     function get_allusers(e,gender) {
         e.preventDefault()
-        axios.post('http://127.0.0.1:8000/get_users_match/', { 'gender':gender }, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/get_users_match/`, { 'gender':gender }, { withCredentials: true })
             .then((res) => {
                 setallusers(res.data)
             })
@@ -143,7 +143,7 @@ function Finding_mate() {
                                 <div className={style.notification_content_container}>
                       <div className={style.user_details}>
                         <div className={style.notification_image}>
-                          <img src={`http://127.0.0.1:8000${user.profile}`} alt="" />
+                          <img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="" />
                         </div>
                         <div className={style.notification_user_name}>
                             <p>{user.name}</p>
@@ -200,7 +200,7 @@ function Finding_mate() {
                             <div className={style.findmatch}>
                                 <div className={style.log_user}>
                                     <img
-                                        src={currentuser ? `http://127.0.0.1:8000${currentuser.profile}` : "/placeholder.jpg"}
+                                        src={currentuser ? `${import.meta.env.VITE_API_URL}${currentuser.profile}` : "/placeholder.jpg"}
                                         alt=""
                                         style={{ width: '200px' }}
                                     />
@@ -213,7 +213,7 @@ function Finding_mate() {
                                         src={loading
                                             ? scrolimage
                                             : matchuser
-                                                ? `http://127.0.0.1:8000${matchuser.profile}`
+                                                ? `${import.meta.env.VITE_API_URL}${matchuser.profile}`
                                                 : initial}
                                         alt=""
                                         style={{ width: '200px' }}

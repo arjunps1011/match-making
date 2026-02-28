@@ -21,7 +21,7 @@ function ChatBot() {
         setChatHistory(prev => [...prev, { sender: 'user', message: userMessage }]);
 
 
-        axios.post('http://127.0.0.1:8000/chat_bot/', { message: userMessage })
+        axios.post(`${import.meta.env.VITE_API_URL}/chat_bot/`, { message: userMessage })
             .then((res) => {
                 const reply = res.data.message;
                 setChatHistory(prev => [...prev, { sender: 'bot', message: reply }]);

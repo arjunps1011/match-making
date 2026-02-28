@@ -12,7 +12,7 @@ import Admin_nav from './Admin_nav'
 function AdminDashboard() {
   let [data, setData] = useState({})
   function get_data() {
-    axios.get('http://127.0.0.1:8000/revenue_flow_chart/')
+    axios.get(`${import.meta.env.VITE_API_URL}/revenue_flow_chart/`)
       .then((res) => {
         setData(res.data)
       })

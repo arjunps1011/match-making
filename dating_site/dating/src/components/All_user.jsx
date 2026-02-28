@@ -18,7 +18,7 @@ function All_user() {
   const [search, setSearch] = useState('');
 
   function getdata() {
-    axios.get('http://127.0.0.1:8000/view_users/')
+    axios.get(`${import.meta.env.VITE_API_URL}/view_users/`)
       .then((res) => {
         setUser(res.data);
         setMsg('');
@@ -30,7 +30,7 @@ function All_user() {
 
   function premium() {
  
-    axios.get('http://127.0.0.1:8000/haspremium/')
+    axios.get(`${import.meta.env.VITE_API_URL}/haspremium/`)
       .then((res) => {
         setHaspremium(res.data);
         setFiltertype('premium');
@@ -45,7 +45,7 @@ function All_user() {
     setNopremium([]);
     setUser([]);
     setHaspremium([]);
-    axios.get('http://127.0.0.1:8000/nopremium/')
+    axios.get(`${import.meta.env.VITE_API_URL}/nopremium/`)
       .then((res) => {
         setNopremium(res.data);
         setFiltertype('not a premium');
@@ -74,7 +74,7 @@ function All_user() {
   useEffect(() => { getdata(); }, []);
 
   function deleteuser(id) {
-    axios.delete(`http://127.0.0.1:8000/delete_user/${id}/`)
+    axios.delete(`${import.meta.env.VITE_API_URL}/delete_user/${id}/`)
       .then((res) => {
         alert(res.data.message);
       })
@@ -146,7 +146,7 @@ function All_user() {
                         <td>
                           <div className={style.user}>
                             <div className={style.image}>
-                              <img src={`http://127.0.0.1:8000${user.profile}`} alt="Profile" />
+                              <img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="Profile" />
                             </div>
                             <div className={style.details}>
                               <div className={style.name}>

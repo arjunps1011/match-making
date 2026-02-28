@@ -19,7 +19,7 @@ function Login() {
 
   function submit(e) {
     e.preventDefault();
-    axios.post('http://127.0.0.1:8000/', user, { withCredentials: true })
+    axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true })
       .then((res) => {
         window.location.href = res.data.redirect;
       })
@@ -36,7 +36,7 @@ function Login() {
   function handleSuccess(credentialResponse){
     console.log(credentialResponse);
     if (credentialResponse?.credential) {
-      axios.post('http://127.0.0.1:8000/google_login/', { token: credentialResponse.credential },{withCredentials:true})
+      axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential },{withCredentials:true})
       .then((res) => {
         alert(res.data.message);
         window.location.href = '/';

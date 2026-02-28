@@ -18,7 +18,7 @@ function Register() {
 
     function submit(e) {
         e.preventDefault()
-        axios.post('http://127.0.0.1:8000/register/', user, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/register/`, user, { withCredentials: true })
             .then((res) => { alert('sucess'), navigate('/Otp') })
             .catch((er) => {
                 if (er.response) {
@@ -35,7 +35,7 @@ function Register() {
     function handleSuccess(credentialResponse){
                 console.log(credentialResponse)
 
-                axios.post('http://127.0.0.1:8000/google_signup/',{token:credentialResponse.credential})
+                axios.post(`${import.meta.env.VITE_API_URL}/google_signup/`,{token:credentialResponse.credential})
                 .then((res)=>{
                     alert (res.data.message)
                     navigate('/Login')

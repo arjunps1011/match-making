@@ -9,7 +9,7 @@ import Navbar2 from './Navbar2'
  
 function subscription() {
   function Payment(){
-              axios.post('http://127.0.0.1:8000/payment/',{amount:600},{withCredentials:true})
+              axios.post(`${import.meta.env.VITE_API_URL}/payment/`,{amount:600},{withCredentials:true})
               .then((response)=>{
                 const options = {
       key: "rzp_test_5NNlXRJbteyoDN", 

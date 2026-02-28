@@ -16,7 +16,7 @@ function Complaints() {
     function alluser_complaint(e) {
         e.preventDefault()
         dataContain = []
-        axios.get('http://127.0.0.1:8000/get_allcomplaints/')
+        axios.get(`${import.meta.env.VITE_API_URL}/get_allcomplaints/`)
             .then((res) => {
                 setAllcomplaints(res.data)
             })
@@ -30,7 +30,7 @@ function Complaints() {
         if (e) {
             e.preventDefault()
         }
-        axios.get('http://127.0.0.1:8000/get_complaints/')
+        axios.get(`${import.meta.env.VITE_API_URL}/get_complaints/`)
             .then((res) => {
                 setComplaints(res.data)
                 console.log(res.data)
@@ -47,7 +47,7 @@ function Complaints() {
 
     function send_reply(complaint, e) {
         e.preventDefault()
-        axios.post('http://127.0.0.1:8000/send_reply/', complaint)
+        axios.post(`${import.meta.env.VITE_API_URL}/send_reply/`, complaint)
             .then((res) => {
                 alert(res.data.message)
                 setComplaints(prev => prev.filter(c => c.id !== complaint.id));

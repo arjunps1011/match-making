@@ -26,7 +26,7 @@ function BasicExample() {
         }
         const obj={password:password.password,token:token}
         
-        axios.put('http://127.0.0.1:8000/resetpass/',obj,{withCredentials:true})
+        axios.put(`${import.meta.env.VITE_API_URL}/resetpass/`,obj,{withCredentials:true})
         .then((res)=>{
             alert('sucessfull')
         })

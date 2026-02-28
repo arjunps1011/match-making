@@ -18,7 +18,7 @@ function Navbar2() {
 
   useEffect(() => {
     function get_user() {
-      axios.get('http://127.0.0.1:8000/current_user/', { withCredentials: true })
+      axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
         .then((res) => {
           console.log('User data:', res.data)
           console.log('Has username?', res.data.username)
@@ -35,7 +35,7 @@ function Navbar2() {
 
   function fetch_request() {
 
-    axios.get('http://127.0.0.1:8000/get_request/', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL}/get_request/`, { withCredentials: true })
       .then((res) => {
         setRequests(res.data)
       })
@@ -46,7 +46,7 @@ function Navbar2() {
   console.log(requests);
 
   function accept(id) {
-    axios.put('http://127.0.0.1:8000/accept/', { 'request': id }, { withCredentials: true })
+    axios.put(`${import.meta.env.VITE_API_URL}/accept/`, { 'request': id }, { withCredentials: true })
       .then((res) => {
         setmsg(res.data.message)
       })
@@ -63,7 +63,7 @@ function Navbar2() {
   }, [msg])
 
   function reject(id) {
-    axios.delete('http://127.0.0.1:8000/reject/', { data: { request: id }, withCredentials: true })
+    axios.delete(`${import.meta.env.VITE_API_URL}/reject/`, { data: { request: id }, withCredentials: true })
       .then((res) => {
         setmsg(res.data.message)
       })
@@ -73,7 +73,7 @@ function Navbar2() {
   }
 
   function logout() {
-    axios.post('http://127.0.0.1:8000/logout/', {}, { withCredentials: true })
+    axios.post(`${import.meta.env.VITE_API_URL}/logout/`, {}, { withCredentials: true })
       .then((res) => {
         setUser(null)
         window.location.href = '/'
@@ -110,7 +110,7 @@ function Navbar2() {
               <>
                 <Nav.Link className="ms-3" onClick={() => { setBool(!bool) }}><FontAwesomeIcon icon={faBell} /></Nav.Link>
                 <Nav.Link className="ms-3" as={Link} to='/Chat'><i className="fa fa-comments"></i></Nav.Link>
-                <Nav.Link as={Link} to="/Self_profile" id={style.img}><img src={`http://127.0.0.1:8000${user.profile}`} alt="" style={{ width: '50px' }} /></Nav.Link>
+                <Nav.Link as={Link} to="/Self_profile" id={style.img}><img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="" style={{ width: '50px' }} /></Nav.Link>
               </>
             )}
           </Nav>
@@ -121,7 +121,7 @@ function Navbar2() {
                   <div className={style.notification_content_container}>
                     <div className={style.user_details}>
                       <div className={style.notification_image}>
-                        <img src={`http://127.0.0.1:8000${request.sender_profile}`} alt="" />
+                        <img src={`${import.meta.env.VITE_API_URL}${request.sender_profile}`} alt="" />
                       </div>
                       <div className={style.notification_user_name}>
                         <p>{request.sender_name}</p>

@@ -423,14 +423,14 @@ useEffect(() => {
 }, []);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/current_user/', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
       .then(res => setCurrentuser(res.data));
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (!currentuser) return;
-      axios.get('http://127.0.0.1:8000/api/calls/check_incoming/', { withCredentials: true })
+      axios.get(`${import.meta.env.VITE_API_URL}/api/calls/check_incoming/`, { withCredentials: true })
       .then(res => {
         if (res.data.call && !incomingCall && !currentCall && !outgoingCall) {
           setIncomingCall(res.data.call);
@@ -443,7 +443,7 @@ useEffect(() => {
   useEffect(() => {
     if (!outgoingCall) return;
     const interval = setInterval(() => {
-      axios.get('http://127.0.0.1:8000/api/calls/check_call_status/', { 
+      axios.get(`${import.meta.env.VITE_API_URL}/api/calls/check_call_status/`, { 
         params: { channel: outgoingCall.channel },
         withCredentials: true 
       }).then(res => {
@@ -465,7 +465,7 @@ useEffect(() => {
   useEffect(() => {
     if (!otheruserid) return;
     const interval = setInterval(() => {
-      axios.post('http://127.0.0.1:8000/get_chats/', { otheruserid }, { withCredentials: true })
+      axios.post(`${import.meta.env.VITE_API_URL}/get_chats/`, { otheruserid }, { withCredentials: true })
         .then(res => setAllmessage(res.data));
     }, 3000);
     return () => clearInterval(interval);
@@ -473,20 +473,20 @@ useEffect(() => {
 
   useEffect(() => {
     if (otheruserid) {
-      axios.post('http://127.0.0.1:8000/other_user/', { otheruserid })
+      axios.post(`${import.meta.env.VITE_API_URL}/other_user/`, { otheruserid })
         .then(res => setOtheruser(res.data));
     }
   }, [otheruserid]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/user_list/', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL}/user_list/`, { withCredentials: true })
       .then(res => setUserlist(res.data));
   }, []);
 
   const send_message = (e) => {
     e.preventDefault();
     if (!message.trim() || !otheruserid) return;
-    axios.post('http://127.0.0.1:8000/chat/', { otheruserid, message }, { withCredentials: true })
+    axios.post(`${import.meta.env.VITE_API_URL}/chat/`, { otheruserid, message }, { withCredentials: true })
       .then(() => setMessage(''));
   };
 
@@ -501,7 +501,7 @@ useEffect(() => {
       type: type,
       receiver: otheruser
     });
-    axios.post('http://127.0.0.1:8000/api/calls/start_call/', {
+    axios.post(`${import.meta.env.VITE_API_URL}/api/calls/start_call/`, {
       receiver_id: otheruserid,
       channel: channel,
       call_type: type
@@ -512,7 +512,7 @@ useEffect(() => {
 
   const cancelCall = () => {
     if (!outgoingCall) return;
-    axios.post('http://127.0.0.1:8000/api/calls/cancel_call/', {
+    axios.post(`${import.meta.env.VITE_API_URL}/api/calls/cancel_call/`, {
       channel: outgoingCall.channel
     }, { withCredentials: true })
     .then(() => setOutgoingCall(null))
@@ -521,7 +521,7 @@ useEffect(() => {
 
   const acceptCall = () => {
     if (!incomingCall) return;
-    axios.post('http://127.0.0.1:8000/api/calls/accept_call/', {
+    axios.post(`${import.meta.env.VITE_API_URL}/api/calls/accept_call/`, {
       channel: incomingCall.channel
     }, { withCredentials: true })
     .then(() => {
@@ -532,7 +532,7 @@ useEffect(() => {
 
   const rejectCall = () => {
     if (!incomingCall) return;
-    axios.post('http://127.0.0.1:8000/api/calls/reject_call/', {
+    axios.post(`${import.meta.env.VITE_API_URL}/api/calls/reject_call/`, {
       channel: incomingCall.channel
     }, { withCredentials: true })
     .then(() => setIncomingCall(null))
@@ -541,7 +541,7 @@ useEffect(() => {
 
   const endCall = () => {
     if (!currentCall) return;
-    axios.post('http://127.0.0.1:8000/api/calls/end_call/', {
+    axios.post(`${import.meta.env.VITE_API_URL}/api/calls/end_call/`, {
       channel: currentCall.roomID
     }, { withCredentials: true })
     .then(() => setCurrentCall(null))
@@ -560,7 +560,7 @@ useEffect(() => {
 
   const check_premium = (e, otheruserid) => {
     e.preventDefault();
-    axios.get('http://127.0.0.1:8000/check_premium/', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL}/check_premium/`, { withCredentials: true })
       .then(() => navigate(`/Users_profile/${otheruserid}`))
       .catch(er => navigate(er.response.data.url) || console.log(er));
   };
@@ -574,7 +574,7 @@ useEffect(() => {
         {(!mobile || !showchat) && (
           <div onClick={() => { if (mobile) setShowchat(true) }} className={style.user_list}>
             <div className={style.self_user}>
-              {currentuser && <img src={`http://127.0.0.1:8000${currentuser.profile}`} alt="" />}
+              {currentuser && <img src={`${import.meta.env.VITE_API_URL}${currentuser.profile}`} alt="" />}
               <div className={style.heading}><h1>{currentuser?.name}</h1></div>
             </div>
             <div className={style.search}>
@@ -585,7 +585,7 @@ useEffect(() => {
                 <div key={user.id} className={style.user_container} onClick={() => setOtheruserid(user.id)}>
                   <div className={style.user_content}>
                     <div className={style.user_image}>
-                      <img src={`http://127.0.0.1:8000${user.profile}`} alt="" />
+                      <img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="" />
                     </div>
                     <div className={style.user_details}>
                       <p id={style.name}>{user.name}</p>
@@ -611,7 +611,7 @@ useEffect(() => {
             }
               <div className={style.chat_user_info}>
                 <div className={style.chat_user_img}>
-                  {otheruser && <img src={`http://127.0.0.1:8000${otheruser.profile}`} alt="" />}
+                  {otheruser && <img src={`${import.meta.env.VITE_API_URL}${otheruser.profile}`} alt="" />}
                 </div>
                 <div className={style.chat_user_name}>
                   <p>{otheruser?.name || "Select a user"}</p>
@@ -645,7 +645,7 @@ useEffect(() => {
                 return (
                   <div key={msg.id} className={isSender ? style.msg_sender : style.msg_reciver}>
                     <div className={isSender ? style.sender : style.reciver}>
-                      <img src={`http://127.0.0.1:8000${isSender ? currentuser.profile : otheruser?.profile}`} alt="" />
+                      <img src={`${import.meta.env.VITE_API_URL}${isSender ? currentuser.profile : otheruser?.profile}`} alt="" />
                     </div>
                     <div className={style.msg}>
                       <p>{makeLinksClickable(msg.message)}</p>

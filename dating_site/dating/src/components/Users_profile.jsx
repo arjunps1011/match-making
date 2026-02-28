@@ -15,7 +15,7 @@ function Users_profile() {
     let [loading, setLoading] = useState(true)
     useEffect(() => {
         function view_profile(id) {
-            axios.post('http://127.0.0.1:8000/view_profile/', { id })
+            axios.post(`${import.meta.env.VITE_API_URL}/view_profile/`, { id })
                 .then((res) => {
                     setUser(res.data)
                     setLoading(false)
@@ -45,7 +45,7 @@ function Users_profile() {
                                 <p>Avatar</p>
                             </div>
                             <div className={style.profile_img}>
-                                <img src={user.profile ? `http://127.0.0.1:8000${user.profile}` : '/default_profile.jpg'} alt="" style={{ width: '130px', borderRadius: '50%' }} />
+                                <img src={user.profile ? `${import.meta.env.VITE_API_URL}${user.profile}` : '/default_profile.jpg'} alt="" style={{ width: '130px', borderRadius: '50%' }} />
                             </div>
                         </div>
                         <div className={style.name_info}>

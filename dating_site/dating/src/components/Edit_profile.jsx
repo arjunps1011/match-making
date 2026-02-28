@@ -50,7 +50,7 @@ function Edit_profile() {
             .then(res => res.blob())
             .then(blob => {
                 formData.append('profile', blob, 'profile.png');
-                axios.put('http://127.0.0.1:8000/edit_profile/', formData,{withCredentials:true})
+                axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData,{withCredentials:true})
                 .then((res)=>{
                     alert(res.data.message)
                 })
@@ -65,7 +65,7 @@ function Edit_profile() {
             });
     } else {
         
-        axios.put('http://127.0.0.1:8000/edit_profile/', formData,{withCredentials:true})
+        axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData,{withCredentials:true})
         .then((res)=>{
                     alert(res.data.message)
                 })
@@ -81,7 +81,7 @@ function Edit_profile() {
     }
 
     function show_details() {
-        axios.get('http://127.0.0.1:8000/profile_view/', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_API_URL}/profile_view/`, { withCredentials: true })
             .then((res) => setUser(res.data))
             .catch((er) => alert(er.response.data.message));
     }
@@ -161,7 +161,7 @@ function Edit_profile() {
                         </div>
                         <div className={style.profile_img}>
                             <img
-                                src={croppedImage || (user?.profile ? `http://127.0.0.1:8000${user.profile}` : '/default_profile.jpg')}
+                                src={croppedImage || (user?.profile ? `${import.meta.env.VITE_API_URL}${user.profile}` : '/default_profile.jpg')}
                                 alt="Profile"
                                 className={style.profile_avatar}
                             />

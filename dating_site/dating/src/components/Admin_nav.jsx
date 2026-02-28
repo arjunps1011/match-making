@@ -12,7 +12,7 @@ function Admin_nav() {
     let [newpremium, setnewpremium] = useState([]);
 
     function get_data() {
-        axios.get('http://127.0.0.1:8000/get_data/')
+        axios.get(`${import.meta.env.VITE_API_URL}/get_data/`)
             .then((res) => {
                 setNewuser(res.data.new_users);
                 setNewcomplaints(res.data.new_complaints);
@@ -68,7 +68,7 @@ function Admin_nav() {
                                 newuser.map((u) => (
                                     <div  className={style.notification_content}>
                                         <div className={style.notification_image}>
-                                            <img src={`http://127.0.0.1:8000${u.profile}`} alt="user" />
+                                            <img src={`${import.meta.env.VITE_API_URL}${u.profile}`} alt="user" />
                                         </div>
                                         <div className={style.notification_data}>
                                             <div className={style.username}>
@@ -91,7 +91,7 @@ function Admin_nav() {
                                 newcomplaints.map((c) => (
                                     <div  className={style.notification_content}>
                                         <div className={style.notification_image}>
-                                            <img src={`http://127.0.0.1:8000${c.user_profile}`} alt="user" style={{width:'50px'}}/>
+                                            <img src={`${import.meta.env.VITE_API_URL}${c.user_profile}`} alt="user" style={{width:'50px'}}/>
                                         </div>
                                         <div className={style.notification_data}>
                                             <div className={style.username}>
@@ -114,7 +114,7 @@ function Admin_nav() {
                                 newpremium.map((p) => (
                                     <div className={style.notification_content}>
                                         <div className={style.notification_image}>
-                                            <img src={`http://127.0.0.1:8000${u.profile}`} alt="user" />
+                                            <img src={`${import.meta.env.VITE_API_URL}${p.profile}`} alt="user" />
                                         </div>
                                         <div className={style.notification_data}>
                                             <div className={style.username}>

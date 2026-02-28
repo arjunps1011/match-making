@@ -18,7 +18,7 @@ function Otp() {
   }
   function submit(e) {
     e.preventDefault()
-        axios.post('http://127.0.0.1:8000/otp/', otp, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/otp/`, otp, { withCredentials: true })
       .then((res) => {
         setMessage('OTP Verified Successfully')
 
