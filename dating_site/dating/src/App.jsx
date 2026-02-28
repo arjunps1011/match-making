@@ -24,7 +24,7 @@ import { useEffect } from 'react';
 function App() {
     useEffect(()=>{
   const timer=setInterval(()=>{
-    axios.post('http://127.0.0.1:8000/update_time/',{},{withCredentials:true})
+    axios.post(`${import.meta.env.VITE_API_URL}/update_time/`,{},{withCredentials:true})
     .then((res)=>{
       console.log('sucess');
       
@@ -40,7 +40,7 @@ function App() {
 
   useEffect(()=>{
     const timer=setInterval(()=>{
-      axios.post('http://127.0.0.1:8000/check_online/',{},{withCredentials:true})
+      axios.post(`${import.meta.env.VITE_API_URL}/check_online/`,{},{withCredentials:true})
       .then((res)=>{
         console.log('sucess');
         
