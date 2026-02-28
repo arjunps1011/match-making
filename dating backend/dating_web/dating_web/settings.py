@@ -66,6 +66,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://127.0.0.1:5173",
     "https://localhost:5173",
+    "https://match-making-21jrhe0c8-arjunps1011s-projects.vercel.app",
 ]
 
 APP_ID = os.getenv('APP_ID')
@@ -87,15 +88,19 @@ RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_HTTPONLY = False
 SESSION_COOKIE_DOMAIN = None
 
-CSRF_COOKIE_SECURE = False
-CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_HTTPONLY = False
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173', 'http://localhost:5173']
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
+    'https://match-making-21jrhe0c8-arjunps1011s-projects.vercel.app',
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
