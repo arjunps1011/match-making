@@ -21,7 +21,11 @@ function Login() {
     e.preventDefault();
     axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true })
       .then((res) => {
-        window.location.href = res.data.redirect;
+        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+          .then((userRes) => {
+            localStorage.setItem('user', JSON.stringify(userRes.data));
+            window.location.href = res.data.redirect;
+          });
       })
       .catch((er) => {
         if (er.response?.data?.message) {
@@ -38,8 +42,12 @@ function Login() {
     if (credentialResponse?.credential) {
       axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential },{withCredentials:true})
       .then((res) => {
-        alert(res.data.message);
-        window.location.href = '/';
+        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+          .then((userRes) => {
+            localStorage.setItem('user', JSON.stringify(userRes.data));
+            alert(res.data.message);
+            window.location.href = '/';
+          });
       })
       .catch((er) => {
         alert(er.response?.data?.message || 'login failed');

@@ -14,23 +14,30 @@ function Navbar2() {
   let [requests, setRequests] = useState([])
   let [bool, setBool] = useState(false)
   let [msg, setmsg] = useState('')
-  let [user, setUser] = useState()
+  let [user, setUser] = useState(() => {
+    const cached = localStorage.getItem('user')
+    console.log('📦 Raw localStorage:', cached)
+    const parsed = cached ? JSON.parse(cached) : null
+    console.log('🔵 Parsed user data:', parsed)
+    console.log('🖼️ Profile path:', parsed?.profile)
+    return parsed
+  })
 
   useEffect(() => {
-    function get_user() {
-      axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
-        .then((res) => {
-          console.log('User data:', res.data)
-          console.log('Has username?', res.data.username)
-          if (res.data && (res.data.username || res.data.email || res.data.name)) {
-            setUser(res.data)
-          }
-        })
-        .catch((er) => {
-          console.log('Error fetching user:', er);
-        })
-    }
-    get_user()
+    axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+      .then((res) => {
+        if (res.data && (res.data.username || res.data.email || res.data.name)) {
+          setUser(res.data)
+          localStorage.setItem('user', JSON.stringify(res.data))
+        } else {
+          setUser(null)
+          localStorage.removeItem('user')
+        }
+      })
+      .catch(() => {
+        setUser(null)
+        localStorage.removeItem('user')
+      })
   }, [])
 
   function fetch_request() {
@@ -76,6 +83,7 @@ function Navbar2() {
     axios.post(`${import.meta.env.VITE_API_URL}/logout/`, {}, { withCredentials: true })
       .then((res) => {
         setUser(null)
+        localStorage.removeItem('user')
         window.location.href = '/'
       })
       .catch((er) => {
@@ -110,7 +118,9 @@ function Navbar2() {
               <>
                 <Nav.Link className="ms-3" onClick={() => { setBool(!bool) }}><FontAwesomeIcon icon={faBell} /></Nav.Link>
                 <Nav.Link className="ms-3" as={Link} to='/Chat'><i className="fa fa-comments"></i></Nav.Link>
-                <Nav.Link as={Link} to="/Self_profile" id={style.img}><img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="" style={{ width: '50px' }} /></Nav.Link>
+                <Nav.Link as={Link} to="/Self_profile" id={style.img}>
+                  <img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="" style={{ width: '50px' }} />
+                </Nav.Link>
               </>
             )}
           </Nav>
@@ -123,6 +133,8 @@ function Navbar2() {
                       <div className={style.notification_image}>
                         <img src={`${import.meta.env.VITE_API_URL}${request.sender_profile}`} alt="" />
                       </div>
+
+                      
                       <div className={style.notification_user_name}>
                         <p>{request.sender_name}</p>
                       </div>
