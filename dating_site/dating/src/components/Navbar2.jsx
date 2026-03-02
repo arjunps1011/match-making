@@ -123,7 +123,7 @@ function Navbar2() {
                 <Nav.Link className="ms-3" as={Link} to='/Chat'><i className="fa fa-comments"></i></Nav.Link>
                 <Nav.Link as={Link} to="/Self_profile" id={style.img}>
                   <img 
-                    src={user.profile || `https://ui-avatars.com/api/?name=${user.name}&size=200&background=random`}
+                    src={user.profile ? (user.profile.includes('cloudinary.com') ? user.profile : `${import.meta.env.VITE_API_URL}/${user.profile}`) : `https://ui-avatars.com/api/?name=${user.name}&size=200&background=random`}
                     alt="profile" 
                     style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} 
                   />
@@ -138,7 +138,7 @@ function Navbar2() {
                   <div className={style.notification_content_container}>
                     <div className={style.user_details}>
                       <div className={style.notification_image}>
-                        <img src={`${import.meta.env.VITE_API_URL}${request.sender_profile}`} alt="" />
+                        <img src={request.sender_profile ? (request.sender_profile.includes('cloudinary.com') ? request.sender_profile : `${import.meta.env.VITE_API_URL}/${request.sender_profile}`) : 'https://ui-avatars.com/api/?name=User&size=50'} alt="" />
                       </div>
 
                       
