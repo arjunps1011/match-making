@@ -14,30 +14,19 @@ function Navbar2() {
   let [requests, setRequests] = useState([])
   let [bool, setBool] = useState(false)
   let [msg, setmsg] = useState('')
-  let [user, setUser] = useState(() => {
-    const cached = localStorage.getItem('user')
-    console.log('📦 Raw localStorage:', cached)
-    const parsed = cached ? JSON.parse(cached) : null
-    console.log('🔵 Parsed user data:', parsed)
-    console.log('🖼️ Profile path:', parsed?.profile)
-    console.log('✨ User is truthy?', !!parsed)
-    return parsed
-  })
+  let [user, setUser] = useState(null)
 
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
       .then((res) => {
         if (res.data && (res.data.username || res.data.email || res.data.name)) {
           setUser(res.data)
-          localStorage.setItem('user', JSON.stringify(res.data))
         } else {
           setUser(null)
-          localStorage.removeItem('user')
         }
       })
       .catch(() => {
         setUser(null)
-        localStorage.removeItem('user')
       })
   }, [])
 

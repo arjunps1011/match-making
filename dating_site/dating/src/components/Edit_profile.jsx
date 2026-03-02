@@ -63,6 +63,13 @@ function Edit_profile() {
                     alert(res.data.message);
                     // Refresh user data after successful update
                     show_details();
+                    // Update localStorage immediately
+                    axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+                        .then((userRes) => {
+                            localStorage.setItem('user', JSON.stringify(userRes.data));
+                            // Force page refresh to update navbar
+                            window.location.reload();
+                        });
                     // Clear cropped image to show updated profile
                     setCroppedImage(null);
                     setImageSrc(null);
@@ -80,6 +87,13 @@ function Edit_profile() {
                     alert(res.data.message);
                     // Refresh user data after successful update
                     show_details();
+                    // Update localStorage immediately
+                    axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+                        .then((userRes) => {
+                            localStorage.setItem('user', JSON.stringify(userRes.data));
+                            // Force page refresh to update navbar
+                            window.location.reload();
+                        });
                 })
                 .catch((error) => {
                     if (error.response) {

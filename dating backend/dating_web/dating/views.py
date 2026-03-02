@@ -1,5 +1,5 @@
-
-from rest_framework.decorators import api_view
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
@@ -270,20 +270,22 @@ def delete_user(request,id):
         return Response({'message':'user deleted sucessfully'})
 
 
-@api_view(['put'])
+@api_view(['PUT'])
 def edit_profile(request):
-    # DEBUG: Check storage backend
-    from django.conf import settings
-    print("🔥 STORAGE BACKEND:", settings.DEFAULT_FILE_STORAGE)
+    print(f"🔥 Content-Type: {request.content_type}")
+    print(f"🔥 Has FILES: {bool(request.FILES)}")
+    print(f"🔥 FILES keys: {list(request.FILES.keys())}")
+    print('print',request.FILES)
     
     user_id=request.session.get('id')
     if not user_id:
         return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
     user=User_Registration.objects.filter(id=user_id).first()
-    form=registerSerializer(user,data=request.data,partial=True)
-    if form.is_valid():
-        form.save()
-    return Response({'message':'successfully edited'})
+    serializer=registerSerializer(user,data=request.data,partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
