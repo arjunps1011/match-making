@@ -274,12 +274,12 @@ def delete_user(request,id):
 def edit_profile(request):
     user_id=request.session.get('id')
     if not user_id:
-        return Response({'message':'usernot found'},status=status.HTTP_404_NOT_FOUND)
+        return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
     user=User_Registration.objects.filter(id=user_id).first()
     form=registerSerializer(user,data=request.data,partial=True)
     if form.is_valid():
         form.save()
-    return Response({'message':'sucessfully edited'})
+    return Response({'message':'successfully edited'})
 
 
 @api_view(['POST'])
