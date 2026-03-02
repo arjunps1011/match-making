@@ -61,6 +61,11 @@ function Edit_profile() {
                 })
                 .then((res) => {
                     alert(res.data.message);
+                    // Refresh user data after successful update
+                    show_details();
+                    // Clear cropped image to show updated profile
+                    setCroppedImage(null);
+                    setImageSrc(null);
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -73,6 +78,8 @@ function Edit_profile() {
             axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, {withCredentials:true})
                 .then((res) => {
                     alert(res.data.message);
+                    // Refresh user data after successful update
+                    show_details();
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -86,7 +93,11 @@ function Edit_profile() {
 
     function show_details() {
         axios.get(`${import.meta.env.VITE_API_URL}/profile_view/`, { withCredentials: true })
-            .then((res) => setUser(res.data))
+            .then((res) => {
+                console.log('User data received:', res.data);
+                console.log('Profile URL:', res.data.profile);
+                setUser(res.data);
+            })
             .catch((er) => alert(er.response.data.message));
     }
 
@@ -185,9 +196,13 @@ function Edit_profile() {
                         </div>
                         <div className={style.profile_img}>
                             <img
-                                src={croppedImage || (user?.profile ? (user.profile.includes('cloudinary.com') ? user.profile : `${import.meta.env.VITE_API_URL}/${user.profile}`) : '/default_profile.jpg')}
+                                src={croppedImage || (user?.profile ? (user.profile.includes('cloudinary.com') ? user.profile : `${import.meta.env.VITE_API_URL}/${user.profile}`) : 'https://ui-avatars.com/api/?name=User&size=200')}
                                 alt="Profile"
                                 className={style.profile_avatar}
+                                onError={(e) => {
+                                    console.log('Image failed to load:', e.target.src);
+                                    e.target.src = 'https://ui-avatars.com/api/?name=User&size=200';
+                                }}
                             />
                         </div>
                         <div className={style.editpf}>
