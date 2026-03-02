@@ -272,6 +272,10 @@ def delete_user(request,id):
 
 @api_view(['put'])
 def edit_profile(request):
+    # DEBUG: Check storage backend
+    from django.conf import settings
+    print("🔥 STORAGE BACKEND:", settings.DEFAULT_FILE_STORAGE)
+    
     user_id=request.session.get('id')
     if not user_id:
         return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
@@ -514,7 +518,7 @@ def user_list(request):
             chat_lis[other_user.id]={
                 'id':other_user.id,
                 'name':other_user.name,
-                'profile':other_user.profile.url,
+                'profile': str(other_user.profile) if other_user.profile else '',
                 'isonline':other_user.isonline
             }
     return Response(list(chat_lis.values()))
@@ -548,8 +552,8 @@ def get_chats(request):
             'receiver': c.receiver.id,
             'message': c.message,
             'timestamp': c.timestamp,
-            'sender_profile': c.sender.profile.url if c.sender.profile else '',
-            'receiver_profile': other_user.profile.url if other_user.profile else ''
+            'sender_profile': str(c.sender.profile) if c.sender.profile else '',
+            'receiver_profile': str(other_user.profile) if other_user.profile else ''
         })
 
 
@@ -558,6 +562,10 @@ def get_chats(request):
     
 @api_view(['GET'])
 def current_user(request):
+    # 🔥 DEBUG: Check storage backend
+    from django.conf import settings
+    print("🔥 STORAGE BACKEND:", settings.DEFAULT_FILE_STORAGE)
+    
     user_id=request.session.get('id')
     if not user_id:
         return Response({}, status=status.HTTP_401_UNAUTHORIZED)

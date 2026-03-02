@@ -125,7 +125,11 @@ function Navbar2() {
                   <img 
                     src={user.profile ? (user.profile.includes('cloudinary.com') ? user.profile : `${import.meta.env.VITE_API_URL}/${user.profile}`) : `https://ui-avatars.com/api/?name=${user.name}&size=200&background=random`}
                     alt="profile" 
-                    style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} 
+                    style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }}
+                    onError={(e) => {
+                      console.log('❌ Image failed to load:', e.target.src);
+                      e.target.src = `https://ui-avatars.com/api/?name=${user.name}&size=200&background=random`;
+                    }}
                   />
                 </Nav.Link>
               </>

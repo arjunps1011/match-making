@@ -1,0 +1,9 @@
+@echo off
+echo 🔄 Restarting Django with Cloudinary...
+cd "dating backend\dating_web"
+call ..\djvenv\Scripts\activate
+echo 📦 Installing/updating packages...
+pip install cloudinary django-cloudinary-storage
+echo 🚀 Starting Django server...
+python manage.py runserver
+pause
