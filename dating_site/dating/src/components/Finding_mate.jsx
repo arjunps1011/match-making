@@ -248,7 +248,7 @@ function Finding_mate() {
                     )}
                 </div>
             </div>
-      
+        </div>
     )
 }
 
