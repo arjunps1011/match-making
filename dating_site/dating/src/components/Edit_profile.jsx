@@ -5,6 +5,7 @@ import Sidebar from './Sidebar.jsx';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Cropper from 'react-easy-crop';
+import imageCompression from 'browser-image-compression';
 
 function Edit_profile() {
     let [user, setUser] = useState(null);
@@ -34,7 +35,6 @@ function Edit_profile() {
         e.preventDefault()
         const formData = new FormData();
 
-
         for (let key in data) {
             if (data[key]){
             formData.append(key, data[key]);
@@ -44,40 +44,44 @@ function Edit_profile() {
             formData.append('hobies', JSON.stringify(hobies))
         }
 
-
-          if (croppedImage) {
-        fetch(croppedImage)
-            .then(res => res.blob())
-            .then(blob => {
-                formData.append('profile', blob, 'profile.png');
-                axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData,{withCredentials:true})
-                .then((res)=>{
-                    alert(res.data.message)
+        if (croppedImage) {
+            fetch(croppedImage)
+                .then(res => res.blob())
+                .then(blob => {
+                    // Compress the cropped image blob
+                    return imageCompression(blob, {
+                        maxSizeMB: 0.5,
+                        maxWidthOrHeight: 400,
+                        useWebWorker: true,
+                    });
                 })
-                .catch((er)=>{
-                    if (er.response){
-                        alert(er.response.data.message)
-                    }
-                    else{
-                        alert(er)
-                    }
+                .then(compressedBlob => {
+                    formData.append('profile', compressedBlob, 'profile.jpg');
+                    return axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, {withCredentials:true});
                 })
-            });
-    } else {
-        
-        axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData,{withCredentials:true})
-        .then((res)=>{
-                    alert(res.data.message)
+                .then((res) => {
+                    alert(res.data.message);
                 })
-                .catch((er)=>{
-                    if (er.response){
-                        alert(er.response.data.message)
+                .catch((error) => {
+                    if (error.response) {
+                        alert(error.response.data.message);
+                    } else {
+                        alert('Upload failed');
                     }
-                    else{
-                        alert(er)
-                    }}
-                )
-    }
+                });
+        } else {
+            axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, {withCredentials:true})
+                .then((res) => {
+                    alert(res.data.message);
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        alert(error.response.data.message);
+                    } else {
+                        alert('Update failed');
+                    }
+                });
+        }
     }
 
     function show_details() {
@@ -91,8 +95,28 @@ function Edit_profile() {
     function onSelectFile(e) {
         const file = e.target.files[0];
         if (file) {
-            const url = URL.createObjectURL(file);
-            setImageSrc(url);
+            // File size check
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Image must be less than 5MB");
+                return;
+            }
+
+            // Compress image
+            const options = {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 800,
+                useWebWorker: true,
+            };
+            
+            imageCompression(file, options)
+                .then(compressedFile => {
+                    const url = URL.createObjectURL(compressedFile);
+                    setImageSrc(url);
+                })
+                .catch(error => {
+                    console.error('Error compressing image:', error);
+                    alert('Error processing image. Please try again.');
+                });
         }
     }
 

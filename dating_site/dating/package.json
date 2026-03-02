@@ -18,6 +18,7 @@
     "agora-react-uikit": "^1.2.0",
     "axios": "^1.12.2",
     "bootstrap": "^5.3.8",
+    "browser-image-compression": "^2.0.2",
     "framer-motion": "^12.23.24",
     "lottie-react": "^2.4.1",
     "peerjs": "^1.5.5",
