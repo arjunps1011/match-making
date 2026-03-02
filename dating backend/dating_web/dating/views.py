@@ -271,6 +271,7 @@ def delete_user(request,id):
 
 
 @api_view(['PUT'])
+@parser_classes([MultiPartParser, FormParser])
 def edit_profile(request):
     print(f"🔥 Content-Type: {request.content_type}")
     print(f"🔥 Has FILES: {bool(request.FILES)}")
