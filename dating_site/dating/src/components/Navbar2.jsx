@@ -20,6 +20,7 @@ function Navbar2() {
     const parsed = cached ? JSON.parse(cached) : null
     console.log('🔵 Parsed user data:', parsed)
     console.log('🖼️ Profile path:', parsed?.profile)
+    console.log('✨ User is truthy?', !!parsed)
     return parsed
   })
 
@@ -114,12 +115,18 @@ function Navbar2() {
             )}
           </Nav>
           <Nav className={style.navRight}>
+            {console.log('🎯 Rendering navRight, user:', user)}
             {user && (
               <>
+                {console.log('🎨 Rendering user menu')}
                 <Nav.Link className="ms-3" onClick={() => { setBool(!bool) }}><FontAwesomeIcon icon={faBell} /></Nav.Link>
                 <Nav.Link className="ms-3" as={Link} to='/Chat'><i className="fa fa-comments"></i></Nav.Link>
                 <Nav.Link as={Link} to="/Self_profile" id={style.img}>
-                  <img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="" style={{ width: '50px' }} />
+                  <img 
+                    src={user.profile || `https://ui-avatars.com/api/?name=${user.name}&size=200&background=random`}
+                    alt="profile" 
+                    style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} 
+                  />
                 </Nav.Link>
               </>
             )}

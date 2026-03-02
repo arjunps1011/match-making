@@ -12,7 +12,7 @@ class User_Registration(models.Model):
     password=models.CharField(max_length=200,null=True,blank=True)
     username=models.CharField(max_length=200,null=True,blank=True)
     premium=models.CharField(max_length=50,null=True,blank=True,default='false')
-    profile=models.ImageField(upload_to='profile',null=True,blank=True, default='default/0d64989794b1a4c9d89bff571d3d5842.jpg')
+    profile=models.ImageField(upload_to='profile',null=True,blank=True)
     token = models.UUIDField(default=uuid.uuid4, unique=True, editable=False, null=True,blank=True)
     hobies = models.JSONField(default=list, blank=True,null=True)
     isonline=models.CharField(max_length=50,default='offline',null=True,blank=True)
