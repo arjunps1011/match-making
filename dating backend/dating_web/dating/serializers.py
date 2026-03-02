@@ -1,17 +1,14 @@
 from rest_framework import serializers
 from .models import *
-import re
 
 class registerSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField()
     
     def get_profile(self, obj):
         if obj.profile:
-            # Extract Cloudinary URL and add optimization parameters
             url = str(obj.profile)
             if 'cloudinary.com' in url:
-                # Add optimization: w_200,h_200,c_fill,q_auto,f_auto
-                url = url.replace('/image/upload/', '/image/upload/w_200,h_200,c_fill,q_auto,f_auto/')
+                return url.replace('/image/upload/', '/image/upload/w_200,h_200,c_fill,q_auto,f_auto/')
             return url
         return None
     

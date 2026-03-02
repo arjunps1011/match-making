@@ -185,7 +185,7 @@ function Edit_profile() {
                         </div>
                         <div className={style.profile_img}>
                             <img
-                                src={croppedImage || (user?.profile ? user.profile : '/default_profile.jpg')}
+                                src={croppedImage || (user?.profile ? (user.profile.includes('cloudinary.com') ? user.profile : `${import.meta.env.VITE_API_URL}/${user.profile}`) : '/default_profile.jpg')}
                                 alt="Profile"
                                 className={style.profile_avatar}
                             />
