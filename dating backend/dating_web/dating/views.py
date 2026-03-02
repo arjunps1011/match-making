@@ -273,20 +273,36 @@ def delete_user(request,id):
 @api_view(['PUT'])
 @parser_classes([MultiPartParser, FormParser])
 def edit_profile(request):
-    print(f"🔥 Content-Type: {request.content_type}")
-    print(f"🔥 Has FILES: {bool(request.FILES)}")
-    print(f"🔥 FILES keys: {list(request.FILES.keys())}")
-    print('print',request.FILES)
-    
-    user_id=request.session.get('id')
-    if not user_id:
-        return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
-    user=User_Registration.objects.filter(id=user_id).first()
-    serializer=registerSerializer(user,data=request.data,partial=True)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        print("FILES:", request.FILES)
+        print("DATA:", request.data)
+        print(f"🔥 Method: {request.method}")
+        print(f"🔥 Content-Type: {request.content_type}")
+        print(f"🔥 Has FILES: {bool(request.FILES)}")
+        print(f"🔥 FILES keys: {list(request.FILES.keys())}")
+        print(f"🔥 DATA keys: {list(request.data.keys())}")
+        
+        user_id=request.session.get('id')
+        if not user_id:
+            return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
+        user=User_Registration.objects.filter(id=user_id).first()
+        
+        serializer=registerSerializer(user,data=request.data,partial=True)
+        print(f"🔥 Serializer valid: {serializer.is_valid()}")
+        
+        if serializer.is_valid():
+            serializer.save()
+            print(f"🔥 Saved successfully")
+            return Response(serializer.data)
+        else:
+            print(f"🔥 Serializer errors: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+    except Exception as e:
+        print(f"🔥 EXCEPTION: {str(e)}")
+        import traceback
+        print(f"🔥 TRACEBACK: {traceback.format_exc()}")
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(['POST'])

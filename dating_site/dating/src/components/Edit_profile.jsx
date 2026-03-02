@@ -60,46 +60,38 @@ function Edit_profile() {
                     return axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, {withCredentials:true});
                 })
                 .then((res) => {
-                    alert(res.data.message);
-                    // Refresh user data after successful update
-                    show_details();
-                    // Update localStorage immediately
-                    axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
-                        .then((userRes) => {
-                            localStorage.setItem('user', JSON.stringify(userRes.data));
-                            // Force page refresh to update navbar
-                            window.location.reload();
-                        });
+                    alert('Profile updated successfully!');
                     // Clear cropped image to show updated profile
                     setCroppedImage(null);
                     setImageSrc(null);
+                    // Refresh user data after successful update
+                    show_details();
                 })
                 .catch((error) => {
+                    console.error('🔥 Upload error:', error);
+                    console.error('🔥 Error response:', error.response);
+                    console.error('🔥 Error data:', error.response?.data);
                     if (error.response) {
-                        alert(error.response.data.message);
+                        alert(JSON.stringify(error.response.data));
                     } else {
-                        alert('Upload failed');
+                        alert('Upload failed: ' + error.message);
                     }
                 });
         } else {
             axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, {withCredentials:true})
                 .then((res) => {
-                    alert(res.data.message);
+                    alert('Profile updated successfully!');
                     // Refresh user data after successful update
                     show_details();
-                    // Update localStorage immediately
-                    axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
-                        .then((userRes) => {
-                            localStorage.setItem('user', JSON.stringify(userRes.data));
-                            // Force page refresh to update navbar
-                            window.location.reload();
-                        });
                 })
                 .catch((error) => {
+                    console.error('🔥 Update error:', error);
+                    console.error('🔥 Error response:', error.response);
+                    console.error('🔥 Error data:', error.response?.data);
                     if (error.response) {
-                        alert(error.response.data.message);
+                        alert(JSON.stringify(error.response.data));
                     } else {
-                        alert('Update failed');
+                        alert('Update failed: ' + error.message);
                     }
                 });
         }
