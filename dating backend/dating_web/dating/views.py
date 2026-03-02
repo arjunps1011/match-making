@@ -449,37 +449,33 @@ def get_data(request):
 @api_view(['POST'])
 def mate_finding(request):
     looking=request.data.get('looking')
-    # matched_before=request.session.get('matched_before',[])
-
     current_user_id=request.session.get('id')
-    print("Current user ID from session:", current_user_id)
    
     current_user=User_Registration.objects.filter(id=current_user_id).first()
-    print(current_user)
     if not current_user:
         return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
     
-    max_matches=(User_Registration.objects.filter(gender=looking).exclude(id=current_user_id))
+    # Optimize query - select only needed fields and limit results
+    max_matches=User_Registration.objects.filter(gender=looking).exclude(id=current_user_id).only('id', 'name', 'profile', 'hobies')[:20]
     
-    current_user_hobbies = set(current_user.hobies)
+    current_user_hobbies = set(current_user.hobies or [])
     match_user=None
     best_match_count=0
-    for user  in max_matches:
-        print(user)
-        user_hobbies=set(user.hobies)
+    
+    for user in max_matches:
+        user_hobbies=set(user.hobies or [])
         match_count=len(current_user_hobbies & user_hobbies)
         if match_count>best_match_count and match_count > 0:
             match_user=user
             best_match_count=match_count
+    
+    # If no hobby match, return random user
     if match_user is None:
-        return Response({'message':'no match found'},status=status.HTTP_400_BAD_REQUEST)
-    # matched_before.append(match_user.id)
-    # request.session["matched_before"] = matched_before
+        match_user = max_matches.first() if max_matches else None
+        if not match_user:
+            return Response({'message':'no match found'},status=status.HTTP_400_BAD_REQUEST)
+    
     match_user_json=registerSerializer(match_user,many=False)
-    print("Reached end safely")
-    print('match_user',match_user,'')
-
-
     return Response({'match_user':match_user_json.data})
 
 @api_view(['GET'])

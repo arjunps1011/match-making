@@ -88,7 +88,7 @@ function Finding_mate() {
                     setSucessmsg(er.response?.data?.message || 'failed')
                     setLoading(false)
                 })
-        }, 5000)
+        }, 1000)
     }
     function send_Request(user) {
         axios.post(`${import.meta.env.VITE_API_URL}/send_request/`, { user }, { withCredentials: true })
@@ -138,12 +138,17 @@ function Finding_mate() {
                             <div className={style.female}>
                                <a href=""><FontAwesomeIcon icon={faVenus} style={{ color: 'pink' }}  onClick={(e)=>{get_allusers(e,'female')}}/></a> 
                             </div>
-                        </div>{
-                            allusers.map(user => (
-                                <div className={style.notification_content_container}>
+                        </div>
+                            {allusers.map(user => (
+                                <div key={user.id} className={style.notification_content_container}>
                       <div className={style.user_details}>
                         <div className={style.notification_image}>
-                          <img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="" />
+                          <img 
+                            src={user.profile || `https://ui-avatars.com/api/?name=${user.name}&size=200`} 
+                            alt="" 
+                            loading="lazy"
+                            style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '50%' }}
+                          />
                         </div>
                         <div className={style.notification_user_name}>
                             <p>{user.name}</p>
@@ -151,7 +156,7 @@ function Finding_mate() {
                       </div>
                       <div className={style.buttons}>
                         <Button variant="primary" onClick={()=>{navigate(`/Users_profile/${user.id}`)}}>View Profile</Button>
-                        <Button variant="primary" onClick={()=>{send_Request(user.id)}}>Rquest</Button>
+                        <Button variant="primary" onClick={()=>{send_Request(user.id)}}>Request</Button>
                       </div>
                     </div>
                             ))}
@@ -200,9 +205,10 @@ function Finding_mate() {
                             <div className={style.findmatch}>
                                 <div className={style.log_user}>
                                     <img
-                                        src={currentuser ? `${import.meta.env.VITE_API_URL}${currentuser.profile}` : "/placeholder.jpg"}
+                                        src={currentuser ? (currentuser.profile || `https://ui-avatars.com/api/?name=${currentuser.name}&size=200`) : "/placeholder.jpg"}
                                         alt=""
-                                        style={{ width: '200px' }}
+                                        style={{ width: '200px', height: '200px', objectFit: 'cover', borderRadius: '10px' }}
+                                        loading="lazy"
                                     />
                                 </div>
                                 <div className={style.lottie}>
@@ -210,13 +216,10 @@ function Finding_mate() {
                                 </div>
                                 <div className={style.user}>
                                     <img
-                                        src={loading
-                                            ? scrolimage
-                                            : matchuser
-                                                ? `${import.meta.env.VITE_API_URL}${matchuser.profile}`
-                                                : initial}
+                                        src={loading ? scrolimage : (matchuser ? (matchuser.profile || `https://ui-avatars.com/api/?name=${matchuser.name}&size=200`) : initial)}
                                         alt=""
-                                        style={{ width: '200px' }}
+                                        style={{ width: '200px', height: '200px', objectFit: 'cover', borderRadius: '10px' }}
+                                        loading="lazy"
                                     />
                                 </div>
                             </div>
@@ -245,7 +248,7 @@ function Finding_mate() {
                     )}
                 </div>
             </div>
-        </div>
+      
     )
 }
 
