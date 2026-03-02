@@ -109,17 +109,21 @@ CSRF_TRUSTED_ORIGINS = [
     'https://match-making-21jrhe0c8-arjunps1011s-projects.vercel.app',
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Cloudinary Configuration
 cloudinary.config(
     cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"),
     api_key = os.getenv("CLOUDINARY_API_KEY"),
     api_secret = os.getenv("CLOUDINARY_API_SECRET"),
+    secure = True
 )
 
+# Force Cloudinary for all media files
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+# Remove local media settings when using Cloudinary
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TEMPLATES = [
     {
