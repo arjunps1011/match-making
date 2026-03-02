@@ -271,7 +271,6 @@ def delete_user(request,id):
 
 
 @api_view(['PUT'])
-@parser_classes([MultiPartParser, FormParser])
 def edit_profile(request):
     try:
         print("FILES:", request.FILES)
