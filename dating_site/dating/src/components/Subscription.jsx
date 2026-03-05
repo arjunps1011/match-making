@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import style from '../assets/css/subcription.module.css'
 import axios from 'axios';
 import lottie from'../assets/Hearts feedback.json'
