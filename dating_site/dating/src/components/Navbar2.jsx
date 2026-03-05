@@ -17,17 +17,10 @@ function Navbar2() {
   let [user, setUser] = useState(null)
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
-      .then((res) => {
-        if (res.data && (res.data.username || res.data.email || res.data.name)) {
-          setUser(res.data)
-        } else {
-          setUser(null)
-        }
-      })
-      .catch(() => {
-        setUser(null)
-      })
+   user_data=localStorage.getItem('user')
+   if (user != null) {
+    setUser(JSON.parse(user_data))
+   }
   }, [])
 
   function fetch_request() {
