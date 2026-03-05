@@ -103,7 +103,14 @@ function Self_profile() {
                             <p>Avatar</p>
                         </div>
                         <div className={style.profile_img}>
-                            <img src={user.profile || `https://ui-avatars.com/api/?name=${user.name}&size=200`} alt="" style={{ width: '130px', height: '130px', objectFit: 'cover', borderRadius: '50%' }} />
+                            <img 
+                                src={user.profile && user.profile !== 'null' && user.profile !== '' ? user.profile : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=200&background=ff6b9d&color=fff`} 
+                                alt="Profile" 
+                                style={{ width: '130px', height: '130px', objectFit: 'cover', borderRadius: '50%' }}
+                                onError={(e) => {
+                                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=200&background=ff6b9d&color=fff`;
+                                }}
+                            />
                         </div>
                     </div>
                     <div className={style.name_info}>

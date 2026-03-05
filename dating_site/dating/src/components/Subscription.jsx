@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import style from '../assets/css/subcription.module.css'
 import axios from 'axios';
-import lottie from'../assets/Hearts feedback.json'
+import lottie from '../assets/Hearts feedback.json'
 import Lottie from "lottie-react";
 import Footer from './Footer'
 import Navbar2 from './Navbar2'
