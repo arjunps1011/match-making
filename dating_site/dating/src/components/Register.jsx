@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import style from '../assets/css/register.module.css'
 import image from '../assets/images/man-kneeling-giving-his-girlfriend-roses-red-gift.jpg'
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
@@ -141,7 +141,7 @@ function Register() {
                     </div>
                 </GoogleOAuthProvider >
                     <div className={style.login}>
-                        <p>Already have an account? Login here!<a href={'/Login'}>login</a></p>
+                        <p>Already have an account? Login here! <Link to='/Login'>login</Link></p>
                     </div>
                       
                 </div>

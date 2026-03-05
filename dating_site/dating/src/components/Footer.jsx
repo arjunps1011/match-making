@@ -1,5 +1,6 @@
 import React from 'react'
 import style from '../assets/css/index.module.css'
+import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
@@ -9,9 +10,9 @@ function Footer() {
               <h1>Match <span id={style.making}>Making</span></h1>
           </div>
           <div className={style.links}>
-              <a href="">Home</a>
-              <a href="">About Us</a>
-              <a href="">How It Works</a>
+              <Link to="/">Home</Link>
+              <Link to="/About">About Us</Link>
+              <Link to="/">How It Works</Link>
           </div>
           <div className={style.medias}>
             <div className={style.instagram}>

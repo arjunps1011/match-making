@@ -12,9 +12,10 @@ import { useNavigate } from 'react-router-dom'
 
 
 
+
 function Index() {
-  const navigate=useNavigate()
-    const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true);
 
   
   useEffect(() => {
@@ -114,10 +115,9 @@ function Index() {
                 <h3>Need Any Guidence to chat</h3>
                 <p className='text-muted'>Chat whith Our Chatbot</p>
                 <div className={style.guidance_button}>
-                  <button>
-                          <a href="/Chat_bot">Chat bot</a>   
+                  <button onClick={()=>{navigate('/Chat_bot')}}>
+                      Chat bot
                   </button>
-                                   
                 </div>
             </div>
           </div>

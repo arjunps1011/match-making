@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import style from '../assets/css/login.module.css';
 import image from '../assets/images/couple-love-drinking-coffee-coffee-shop.jpg';
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
@@ -101,7 +101,7 @@ function Login() {
                       <Button type="submit">Submit</Button>
                     </div>
                     <div className={style.forget_pass}>
-                      <a href="/Forget_pass">Forget Password</a>
+                      <Link to="/Forget_pass">Forget Password</Link>
                     </div>
                   </div>
                 </Form>
@@ -114,7 +114,7 @@ function Login() {
               </div>
 
               <div className={style.register}>
-                <p>New here? Create an account now! <a href={'/Register'}>Register</a></p>
+                <p>New here? Create an account now! <Link to='/Register'>Register</Link></p>
               </div>
             </div>
 

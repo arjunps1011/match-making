@@ -69,8 +69,15 @@ main{
     background-color:#87CEFA ;
     border: #333333;
 }
-.register a{
+.register a,
+.register a:visited {
    color: #87CEFA;
+   text-decoration: none;
+}
+
+.register a:hover {
+   color: #5f9ea0;
+   text-decoration: underline;
 }
 
 

@@ -125,7 +125,7 @@ color: gray;
       padding: 70px;
       font-family: 'Poppins', sans-serif;
 }
-.links a{
+.links a {
   color: black;
   text-decoration: none;
   font-size: 17px;
@@ -133,6 +133,11 @@ color: gray;
   padding-right: 10px;
   border-right: 1px solid black;
   font-family: 'Poppins', sans-serif;
+}
+
+.links a:hover {
+  color: #00B7EB;
+  text-decoration: underline;
 }
 .medias {
   font-size: 35px;
@@ -205,22 +210,18 @@ font-size: 28px;
   background-color: #FF6F61;
   border: 2px solid #FF6F61;
   border-radius: 50px;
+  padding: 10px;
+  color: white;
   padding: 0;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(255, 111, 97, 0.3);
   transition: all 0.3s ease;
   display: inline-block;
+    padding: 14px 40px;
+    font-size: 18px;
 }
 
-.guidance_button button a {
-  display: block;
-  padding: 14px 40px;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-}
+
 
 .guidance_button button:hover {
   background-color: #ffffff;
@@ -229,7 +230,7 @@ font-size: 28px;
   transform: translateY(-2px);
 }
 
-.guidance_button button:hover a {
+.guidance_button button:hover  {
   color: #FF6F61;
 }
 @media (max-width: 768px) {
