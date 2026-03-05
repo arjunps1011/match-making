@@ -28,6 +28,12 @@ function All_user() {
         ('fetching fsiled');
       });
   }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMsg('');
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [msg]  )
 
   function premium() {
  

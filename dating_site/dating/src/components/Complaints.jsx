@@ -13,7 +13,14 @@ function Complaints() {
     let [allcomplaints, setAllcomplaints] = useState([])
     let [msg,setMsg]=useState('')
 
-
+    useEffect(()=>{
+        if(msg){
+        const timer=setTimeout(() => {
+            setMsg('')
+        }, 4000);
+        return () => clearTimeout(timer);
+        }
+    })
     function alluser_complaint(e) {
         e.preventDefault()
         dataContain = []

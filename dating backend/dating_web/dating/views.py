@@ -44,7 +44,7 @@ ZEGO_SERVER_SECRET=os.getenv('ZEGO_SERVER_SECRET')
 
 @api_view(['POST'])
 def login(request):
-    print("=== login VIEW HIT ===")
+    print("=== LOGIN VIEW HIT ===")
     email=request.data.get('email')
     password=request.data.get('password')
     
@@ -254,13 +254,7 @@ def payment(request):
 
 @api_view(['get'])
 def profile_view(request):
-    print(f"🔥 Profile view - Session ID: {request.session.session_key}")
-    print(f"🔥 Profile view - Session data: {dict(request.session)}")
-    print(f"🔥 Profile view - Cookies: {request.COOKIES}")
-    
     user_id=request.session.get('id')
-    print(f"🔥 Profile view - User ID from session: {user_id}")
-    
     if not user_id:
         return Response({'message':'user not found'},status=status.HTTP_400_BAD_REQUEST)
     user=User_Registration.objects.get(id=user_id)

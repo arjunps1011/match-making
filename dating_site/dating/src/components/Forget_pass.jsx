@@ -23,6 +23,15 @@ function Otp() {
     setMesage('')
   }
 
+   useEffect(()=>{
+          if(message){
+            const timer=setTimeout(() => {
+              setMesage('')
+            }, 4000);
+            return () => clearTimeout(timer);
+          }
+      })
+
   function submit(e){
     e.preventDefault();
     axios.post(`${import.meta.env.VITE_API_URL}/forgetpass/`,email,{withCredentials:true})

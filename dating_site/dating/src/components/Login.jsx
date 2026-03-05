@@ -20,65 +20,47 @@ function Login() {
 
   function submit(e) {
     e.preventDefault();
-    console.log('Submitting login:', user);
-    console.log('API URL:', import.meta.env.VITE_API_URL);
-    console.log('Full URL:', `${import.meta.env.VITE_API_URL}/`);
-    
     setMsg('Logging in...');
     
-    // Test if backend is reachable first
-    axios.get(`${import.meta.env.VITE_API_URL}/test/`)
-      .then(() => {
-        console.log('Backend is reachable');
-        return axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true });
-      })
-      .catch((testError) => {
-        console.log('Backend test failed:', testError);
-        return axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true });
-      })
+    console.log('API URL:', import.meta.env.VITE_API_URL);
+    console.log('Sending login data:', user);
+    
+    axios.post(`${import.meta.env.VITE_API_URL}/login/`, user, { withCredentials: true })
       .then((res) => {
         console.log('Login response:', res.data);
         setMsg('Login successful!');
         
-        // Use user data directly from login response
         if (res.data.user) {
-          console.log('User data from login:', res.data.user);
           localStorage.setItem('user', JSON.stringify(res.data.user));
           setMsg('Redirecting...');
           
           setTimeout(() => {
             navigate('/');
           }, 1000);
-        } else {
+        } 
+        else if(res.data.redirect){
+          navigate(res.data.redirect)
+        }
+        else {
           setMsg('No user data received');
         }
       })
       .catch((er) => {
         console.log('Login error:', er);
         console.log('Error response:', er.response);
-        console.log('Error status:', er.response?.status);
-        console.log('Error data:', er.response?.data);
-        
         if (er.response?.data?.message) {
           setMsg(er.response.data.message);
-        } else if (er.response?.status === 0) {
-          setMsg('Cannot connect to server. Please check if the backend is running.');
         } else {
-          setMsg(`Login failed: ${er.message}`);
+          setMsg('Login failed');
         }
       });
   }
 
   function handleSuccess(credentialResponse){
-    console.log(credentialResponse);
     if (credentialResponse?.credential) {
       axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential }, { withCredentials: true })
       .then((res) => {
-        console.log('Google login response:', res.data);
-        
-        // Use user data directly from Google login response
         if (res.data.user) {
-          console.log('User data from Google login:', res.data.user);
           localStorage.setItem('user', JSON.stringify(res.data.user));
           setMsg(res.data.message);
           navigate('/');
@@ -88,7 +70,6 @@ function Login() {
       })
       .catch((er) => {
         setMsg(er.response?.data?.message || 'login failed');
-        console.log(er);
       });
     } else {
       setMsg("No credential received from Google");

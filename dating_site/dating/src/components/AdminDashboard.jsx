@@ -47,7 +47,7 @@ function AdminDashboard() {
 
                   </div>
                   <div className={style.icon}>
-                    <i class="fa-solid fa-sack-dollar"></i>
+                    <i className="fa-solid fa-sack-dollar"></i>
                   </div>
 
                 </div>
@@ -60,7 +60,7 @@ function AdminDashboard() {
 
                   </div>
                   <div className={style.icon}>
-                    <i class="fa-solid fa-users"></i>
+                    <i className="fa-solid fa-users"></i>
 
                   </div>
                 </div>
@@ -73,7 +73,7 @@ function AdminDashboard() {
 
                   </div>
                   <div className={style.icon}>
-                    <i class="fa-solid fa-comments"></i>
+                    <i className="fa-solid fa-comments"></i>
                   </div>
 
                 </div>
@@ -86,7 +86,7 @@ function AdminDashboard() {
                     <p>New users</p>
                   </div>
                   <div className={style.icon}>
-                    <i class="fa-solid fa-user-plus"></i>
+                    <i className="fa-solid fa-user-plus"></i>
                   </div>
 
                 </div>
@@ -96,10 +96,10 @@ function AdminDashboard() {
           <div className={style.graph_container}>
 
             <div className={style.graph}>
-              <img src={`data:image/png;base64,${data.image}`} alt="" />
+              {data.image && <img src={`data:image/png;base64,${data.image}`} alt="Revenue Chart" />}
             </div>
             <div className={style.pie}>
-              <img src={`data:image/png;base64,${data.pie}`} alt="" />
+              {data.pie && <img src={`data:image/png;base64,${data.pie}`} alt="User Distribution Chart" />}
             </div>
           </div>
 

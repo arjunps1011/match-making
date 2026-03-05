@@ -27,7 +27,14 @@ function Edit_profile() {
         phone: updatedetails.phone,
 
     };
-
+    useEffect(()=>{
+        if(msg){
+        const timer=setTimeout(() => {
+            setMsg('')
+        }, 4000);
+        return () => clearTimeout(timer);
+        }
+    })
     function update(e) {
         setUpdate({ ...updatedetails, [e.target.name]: e.target.value })
     }
@@ -70,7 +77,7 @@ function Edit_profile() {
                     return axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, { withCredentials: true });
                 })
                 .then((res) => {
-                    alert('Profile updated successfully!');
+                    setMsg('Profile updated successfully!');
                     // Clear cropped image to show updated profile
                     setCroppedImage(null);
                     setImageSrc(null);
@@ -82,15 +89,15 @@ function Edit_profile() {
                     console.error('🔥 Error response:', error.response);
                     console.error('🔥 Error data:', error.response?.data);
                     if (error.response) {
-                        alert(JSON.stringify(error.response.data));
+                        setMsg(JSON.stringify(error.response.data));
                     } else {
-                        alert('Upload failed: ' + error.message);
+                        setMsg('Upload failed: ' + error.message);
                     }
                 });
         } else {
             axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, { withCredentials: true })
                 .then((res) => {
-                    alert('Profile updated successfully!');
+                    setMsg('Profile updated successfully!');
                     // Refresh user data after successful update
                     show_details();
                 })
@@ -99,9 +106,9 @@ function Edit_profile() {
                     console.error('🔥 Error response:', error.response);
                     console.error('🔥 Error data:', error.response?.data);
                     if (error.response) {
-                        alert(JSON.stringify(error.response.data));
+                        setMsg(JSON.stringify(error.response.data));
                     } else {
-                        alert('Update failed: ' + error.message);
+                        setMsg('Update failed: ' + error.message);
                     }
                 });
         }
@@ -114,7 +121,7 @@ function Edit_profile() {
                 console.log('Profile URL:', res.data.profile);
                 setUser(res.data);
             })
-            .catch((er) => alert(er.response.data.message));
+            .catch((er) => setMsg(er.response.data.message));
     }
 
     useEffect(show_details, []);
@@ -124,7 +131,7 @@ function Edit_profile() {
         if (file) {
             // File size check
             if (file.size > 5 * 1024 * 1024) {
-                alert("Image must be less than 5MB");
+                setMsg("Image must be less than 5MB");
                 return;
             }
 

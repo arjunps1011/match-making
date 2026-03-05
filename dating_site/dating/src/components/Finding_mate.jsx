@@ -30,6 +30,7 @@ function Finding_mate() {
     
 
 
+    
     const femaleImages = [
         female_image1,
         female_image2,
@@ -42,6 +43,7 @@ function Finding_mate() {
     ];
     const [initial, setInitial] = useState(maleImages[0])
     const [scrolimage, setScrollimage] = useState(null)
+    
 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
@@ -53,6 +55,15 @@ function Finding_mate() {
             })
     }, [])
 
+        
+    useEffect(()=>{
+        if(sucessmsg){
+          const timer=setTimeout(() => {
+            setSucessmsg('')
+          }, 4000);
+          return () => clearTimeout(timer);
+        }
+    })
     useEffect(() => {
         if (looking === 'female') setInitial(femaleImages[0])
         else if (looking === 'male') setInitial(maleImages[0])

@@ -105,8 +105,8 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # Session settings for cross-origin requests
-SESSION_COOKIE_SECURE = True  # Required for HTTPS
-SESSION_COOKIE_SAMESITE = 'None'  # Required for cross-origin
+SESSION_COOKIE_SECURE = False  # Set to False for local HTTP development
+SESSION_COOKIE_SAMESITE = 'Lax'  # Changed from 'None' to 'Lax' for local development
 SESSION_COOKIE_HTTPONLY = False  # Allow JS access
 SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_NAME = 'sessionid'  # Explicit session cookie name
@@ -116,8 +116,8 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 # CSRF settings to match session settings
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = False  # Set to False for local HTTP development
+CSRF_COOKIE_SAMESITE = 'Lax'  # Changed from 'None' to 'Lax' for local development
 CSRF_COOKIE_HTTPONLY = False
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',

@@ -22,7 +22,14 @@ function VideoCallPopup({ roomID, userID, userName, onClose }) {
   const [isLoading, setIsLoading] = useState(true);
   const [msg,setMsg]=useState('')
 
-
+  useEffect(()=>{
+      if(msg){
+        const timer=setTimeout(() => {
+          setMsg('')
+        }, 4000);
+        return () => clearTimeout(timer);
+      }
+  })
 
   useEffect(() => {
     const startLocalStream = async () => {
