@@ -580,11 +580,10 @@ def get_chats(request):
     
 @api_view(['GET'])
 def current_user(request):
-    # 🔥 DEBUG: Check storage backend
-    from django.conf import settings
-    print("🔥 STORAGE BACKEND:", settings.DEFAULT_FILE_STORAGE)
+   
     
     user_id=request.session.get('id')
+    print(user_id)
     if not user_id:
         return Response({}, status=status.HTTP_401_UNAUTHORIZED)
     user=User_Registration.objects.filter(id=user_id).first()

@@ -17,7 +17,7 @@ function Self_profile() {
 
     function profile_data() {
         console.log('Fetching profile data...');
-        axios.get(`${import.meta.env.VITE_API_URL}/profile_view/`, { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
             .then((res) => {
                 console.log('User data:', res.data);
                 console.log('Profile image URL:', res.data.profile);
