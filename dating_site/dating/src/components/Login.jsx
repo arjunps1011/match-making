@@ -25,12 +25,12 @@ function Login() {
     
     setMsg('Logging in...');
     
-    axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true })
+    axios.post(`${import.meta.env.VITE_API_URL}/`, user)
       .then((res) => {
         console.log('Login response:', res.data);
         setMsg('Login successful, getting user data...');
         
-        return axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+        return axios.get(`${import.meta.env.VITE_API_URL}/current_user/`)
       })
       .then((userRes) => {
         console.log('User data:', userRes.data);
@@ -60,9 +60,9 @@ function Login() {
   function handleSuccess(credentialResponse){
     console.log(credentialResponse);
     if (credentialResponse?.credential) {
-      axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential },{withCredentials:true})
+      axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential })
       .then((res) => {
-        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`)
           .then((userRes) => {
             localStorage.setItem('user', JSON.stringify(userRes.data));
             setMsg(res.data.message);
@@ -148,7 +148,7 @@ function Login() {
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId="789242498941-i6actrnh09u1sd7uhf9sjjjmk6ja0qcc.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <Login />
     </GoogleOAuthProvider>
   );
