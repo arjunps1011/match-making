@@ -21,22 +21,38 @@ function Login() {
   function submit(e) {
     e.preventDefault();
     console.log('Submitting login:', user);
+    console.log('API URL:', import.meta.env.VITE_API_URL);
+    
+    setMsg('Logging in...');
+    
     axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true })
       .then((res) => {
         console.log('Login response:', res.data);
-        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
-          .then((userRes) => {
-            console.log('User data:', userRes.data);
-            localStorage.setItem('user', JSON.stringify(userRes.data));
-            navigate('/');
-          });
+        setMsg('Login successful, getting user data...');
+        
+        return axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+      })
+      .then((userRes) => {
+        console.log('User data:', userRes.data);
+        localStorage.setItem('user', JSON.stringify(userRes.data));
+        setMsg('Redirecting...');
+        
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
       })
       .catch((er) => {
         console.log('Login error:', er);
+        console.log('Error response:', er.response);
+        console.log('Error status:', er.response?.status);
+        console.log('Error data:', er.response?.data);
+        
         if (er.response?.data?.message) {
           setMsg(er.response.data.message);
+        } else if (er.response?.status === 0) {
+          setMsg('Cannot connect to server. Please check if the backend is running.');
         } else {
-          setMsg('login failed');
+          setMsg(`Login failed: ${er.message}`);
         }
       });
   }

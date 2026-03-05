@@ -70,6 +70,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://127.0.0.1:5173",
     "https://localhost:5173",
     "https://match-making-21jrhe0c8-arjunps1011s-projects.vercel.app",
+    "https://match-making-lyart.vercel.app",
 ]
 
 APP_ID = os.getenv('APP_ID')
@@ -107,6 +108,9 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
     'http://localhost:5173',
     'https://match-making-21jrhe0c8-arjunps1011s-projects.vercel.app',
+    'https://match-making-git-main-arjunps1011s-projects.vercel.app',
+    'https://match-making-arjunps1011s-projects.vercel.app',
+    'https://match-making-lyart.vercel.app',
 ]
 
 # Cloudinary Configuration
