@@ -22,10 +22,20 @@ function Login() {
     e.preventDefault();
     console.log('Submitting login:', user);
     console.log('API URL:', import.meta.env.VITE_API_URL);
+    console.log('Full URL:', `${import.meta.env.VITE_API_URL}/`);
     
     setMsg('Logging in...');
     
-    axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true })
+    // Test if backend is reachable first
+    axios.get(`${import.meta.env.VITE_API_URL}/test/`)
+      .then(() => {
+        console.log('Backend is reachable');
+        return axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true });
+      })
+      .catch((testError) => {
+        console.log('Backend test failed:', testError);
+        return axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true });
+      })
       .then((res) => {
         console.log('Login response:', res.data);
         setMsg('Login successful, getting user data...');
@@ -148,7 +158,7 @@ function Login() {
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || "789242498941-i6actrnh09u1sd7uhf9sjjjmk6ja0qcc.apps.googleusercontent.com"}>
       <Login />
     </GoogleOAuthProvider>
   );
