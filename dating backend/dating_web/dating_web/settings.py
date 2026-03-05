@@ -64,20 +64,30 @@ MIDDLEWARE = [
 
 
 
+# Simplified CORS settings for deployment
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+# Keep specific origins as backup
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:5173",
-    "https://127.0.0.1:5173",
-    "https://localhost:5173",
-    "https://match-making-21jrhe0c8-arjunps1011s-projects.vercel.app",
     "https://match-making-lyart.vercel.app",
 ]
 
 APP_ID = os.getenv('APP_ID')
 APP_CERTIFICATE = os.getenv('APP_CERTIFICATE')
-
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'dating_web.urls'
 
@@ -106,11 +116,9 @@ CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_HTTPONLY = False
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
-    'http://localhost:5173',
-    'https://match-making-21jrhe0c8-arjunps1011s-projects.vercel.app',
-    'https://match-making-git-main-arjunps1011s-projects.vercel.app',
-    'https://match-making-arjunps1011s-projects.vercel.app',
+    'http://localhost:5173', 
     'https://match-making-lyart.vercel.app',
+    'https://match-making-d84o.onrender.com',
 ]
 
 # Cloudinary Configuration
