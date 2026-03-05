@@ -22,7 +22,7 @@ function Register() {
     function submit(e) {
         e.preventDefault()
         axios.post(`${import.meta.env.VITE_API_URL}/register/`, user, { withCredentials: true })
-            .then((res) => { alert('sucess'), navigate('/Otp') })
+            .then((res) => { setMsg('sucess'), navigate('/Otp') })
             .catch((er) => {
                 if (er.response) {
                     setMsg(er.response.data.message)
