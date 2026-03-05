@@ -25,12 +25,12 @@ function Login() {
     
     setMsg('Logging in...');
     
-    axios.post(`${import.meta.env.VITE_API_URL}/`, user)
+    axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true })
       .then((res) => {
         console.log('Login response:', res.data);
         setMsg('Login successful, getting user data...');
         
-        return axios.get(`${import.meta.env.VITE_API_URL}/current_user/`)
+        return axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
       })
       .then((userRes) => {
         console.log('User data:', userRes.data);
@@ -60,9 +60,9 @@ function Login() {
   function handleSuccess(credentialResponse){
     console.log(credentialResponse);
     if (credentialResponse?.credential) {
-      axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential })
+      axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential }, { withCredentials: true })
       .then((res) => {
-        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`)
+        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
           .then((userRes) => {
             localStorage.setItem('user', JSON.stringify(userRes.data));
             setMsg(res.data.message);
