@@ -41,6 +41,11 @@ function Login() {
         setMsg('Login successful, getting user data...');
         
         return axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+          .catch((userError) => {
+            console.log('Current user fetch failed:', userError);
+            console.log('Using login response data instead');
+            return { data: res.data.user || res.data };
+          });
       })
       .then((userRes) => {
         console.log('User data:', userRes.data);
@@ -73,6 +78,11 @@ function Login() {
       axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential }, { withCredentials: true })
       .then((res) => {
         axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+          .catch((userError) => {
+            console.log('Google current user fetch failed:', userError);
+            console.log('Using Google login response data instead');
+            return { data: res.data.user || res.data };
+          })
           .then((userRes) => {
             localStorage.setItem('user', JSON.stringify(userRes.data));
             setMsg(res.data.message);
