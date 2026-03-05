@@ -60,7 +60,7 @@ function Edit_profile() {
 
                 .then(blob => {
                     console.log("🔥 Blob created:", blob);
-                    // Compress the cropped image blob
+                    
                     return imageCompression(blob, {
                         maxSizeMB: 0.5,
                         maxWidthOrHeight: 400,
@@ -190,6 +190,11 @@ function Edit_profile() {
 
     return (
         <div className='container-fluid'>
+            {msg && (
+                <div className={style.success_message}>
+                    <p>{msg}</p>
+                </div>
+            )}
             <div className={style.main_wrapper}>
                 <Sidebar />
                 <form onSubmit={submit} className={style.main}>
