@@ -23,6 +23,15 @@ function Index() {
     }, 1000); 
     
   }, []);
+  function check_user(e){
+    e.preventDefault();
+    let userdata = localStorage.getItem('user')
+    if (userdata) {
+      navigate('/Finding_mate')
+    } else {
+      navigate('/Login')
+    }
+  }
 
   if (loading) {
     return (
@@ -44,7 +53,7 @@ function Index() {
             <h1>  starts here.</h1>
             <p>Meet someone new today .</p>
             <div className={style.btn}>
-              <button onClick={()=>{navigate('/Finding_mate')}}>Get started</button>
+              <button onClick={check_user}>Get started</button>
             </div>
           </div>
         </div>
