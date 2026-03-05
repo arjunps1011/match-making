@@ -13,8 +13,10 @@ function Self_profile() {
 
     let [user, setUser] = useState(null)
     let [complaint,setComplaint]=useState('')
+    const [msg,setMsg]=useState('')
 
     function profile_data() {
+        console.log('Fetching profile data...');
         axios.get(`${import.meta.env.VITE_API_URL}/profile_view/`, { withCredentials: true })
             .then((res) => {
                 console.log('User data:', res.data);
@@ -22,32 +24,66 @@ function Self_profile() {
                 setUser(res.data)
             })
             .catch((er) => {
-                alert(er.response.data.messege)
+                console.log('Profile fetch error:', er);
+                console.log('Error response:', er.response);
+                console.log('Error status:', er.response?.status);
+                console.log('Error data:', er.response?.data);
+                
+                alert(er.response?.data?.message || 'Failed to load profile. Please login again.');
             })
     }
+    useEffect(() => {
+        if (msg) {
+            const timer = setTimeout(() => {
+                setMsg('')
+            }, 4000)
+            return () => clearTimeout(timer)
+        }
+    }, [msg])
+    
     useEffect(profile_data, [])
     if (!user) {
         return <div style={{ textAlign: 'center', marginTop: '50px' }}><Lottie animationData={lottie} loop={true} style={{ height: '500px' }} /></div>;
     }
 
-    function complaints(){
-        axios.post(`${import.meta.env.VITE_API_URL}/user_complaints/`,{complaints:complaint},{withCredentials:true})
-        .then((res)=>{
-            alert(res.data.message)
-        })
-        .catch((er)=>{
-            if (er.response.data){
-                alert(er.response.data.message)
-            }
-            else{
-                alert('submission failed')
-                console.log(er);
-                
-            }
-        })
+    function complaints(e){
+        e.preventDefault();
+        console.log('Submitting complaint:', complaint);
+        
+        // First test if session is working
+        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
+            .then((userRes) => {
+                console.log('Session working, user found:', userRes.data);
+                // Session works, proceed with complaint
+                return axios.post(`${import.meta.env.VITE_API_URL}/user_complaints/`,{complaints:complaint},{withCredentials:true})
+            })
+            .catch((sessionError) => {
+                console.log('Session not working:', sessionError);
+                setMsg('Please login again to submit complaints');
+                return Promise.reject(sessionError);
+            })
+            .then((res) => {
+                console.log('Complaint response:', res.data);
+                setMsg(res.data.message)
+                setComplaint(''); // Clear the textarea
+            })
+            .catch((er) => {
+                console.log('Complaint error:', er);
+                if (er.response?.data){
+                    setMsg(er.response.data.message)
+                }
+                else{
+                    setMsg('submission failed - please login again')
+                }
+            })
     }
     return (
         <div className='container-fluid'>
+            {msg && (
+                <div className={style.success_message}>
+                    <p>{msg}</p>
+                </div>
+            )}
             <div className={style.main_wrapper}>
                 <Sidebar />
 
@@ -145,11 +181,12 @@ function Self_profile() {
                                 <p>Describe your issue in detail. We'll get back to you soon.</p>
                             </div>
                         </div>
-                        <form className={style.complaint_form} onSubmit={()=>complaints()}>
+                        <form className={style.complaint_form} onSubmit={complaints}>
                             <textarea
                                 className={style.complaint_textarea}
                                 placeholder="Write your complaint here..."
                                 required
+                                value={complaint}
                                 onChange={(e)=>setComplaint(e.target.value)}
                                 
                             ></textarea>

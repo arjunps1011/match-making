@@ -77,6 +77,8 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'cookie',
+    'set-cookie',
 ]
 
 # Keep specific origins as backup
@@ -107,6 +109,7 @@ SESSION_COOKIE_SECURE = True  # Required for HTTPS
 SESSION_COOKIE_SAMESITE = 'None'  # Required for cross-origin
 SESSION_COOKIE_HTTPONLY = False  # Allow JS access
 SESSION_COOKIE_DOMAIN = None
+SESSION_COOKIE_NAME = 'sessionid'  # Explicit session cookie name
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400
 SESSION_SAVE_EVERY_REQUEST = True

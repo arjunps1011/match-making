@@ -5,6 +5,27 @@
     overflow-x: hidden;
 }
 
+.success_message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-left: 4px solid #e83e8c;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999 !important;
+    font-family: 'Poppins', sans-serif;
+    max-width: 300px;
+}
+
+.success_message p {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .main_wrapper {
     display: flex;
     height: auto;
@@ -72,6 +93,13 @@
     border-radius: 50%;
     border: 3px solid #e9d5ff;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile_image {
+    width: 130px !important;
+    height: 130px !important;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .profile_img img:hover {
