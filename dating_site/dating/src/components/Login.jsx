@@ -49,21 +49,21 @@ function Login() {
         axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
           .then((userRes) => {
             localStorage.setItem('user', JSON.stringify(userRes.data));
-            alert(res.data.message);
+            setMsg(res.data.message);
             navigate('/');
           });
       })
       .catch((er) => {
-        alert(er.response?.data?.message || 'login failed');
+        setMsg(er.response?.data?.message || 'login failed');
         console.log(er);
       });
     } else {
-      alert("No credential received from Google");
+      setMsg("No credential received from Google");
     }
   }
 
   function handleError(){
-    alert('login failed');
+    setMsg('login failed');
   }
 
   return (
