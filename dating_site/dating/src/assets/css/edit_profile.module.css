@@ -178,5 +178,25 @@
     margin: 0px;
 }
 
+.success_message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 320px;
+  background: white;
+  border-left: 6px solid #ff6b9d;
+  border-radius: 12px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 28px rgba(255, 107, 157, 0.25);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #2c3e50;
+  z-index: 9999;
+}
+
+.success_message p {
+  margin: 0;
+}
+
 
 
