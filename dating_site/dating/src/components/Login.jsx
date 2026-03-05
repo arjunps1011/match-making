@@ -38,23 +38,20 @@ function Login() {
       })
       .then((res) => {
         console.log('Login response:', res.data);
-        setMsg('Login successful, getting user data...');
+        setMsg('Login successful!');
         
-        return axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
-          .catch((userError) => {
-            console.log('Current user fetch failed:', userError);
-            console.log('Using login response data instead');
-            return { data: res.data.user || res.data };
-          });
-      })
-      .then((userRes) => {
-        console.log('User data:', userRes.data);
-        localStorage.setItem('user', JSON.stringify(userRes.data));
-        setMsg('Redirecting...');
-        
-        setTimeout(() => {
-          navigate('/');
-        }, 1000);
+        // Use user data directly from login response
+        if (res.data.user) {
+          console.log('User data from login:', res.data.user);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          setMsg('Redirecting...');
+          
+          setTimeout(() => {
+            navigate('/');
+          }, 1000);
+        } else {
+          setMsg('No user data received');
+        }
       })
       .catch((er) => {
         console.log('Login error:', er);
@@ -77,17 +74,17 @@ function Login() {
     if (credentialResponse?.credential) {
       axios.post(`${import.meta.env.VITE_API_URL}/google_login/`, { token: credentialResponse.credential }, { withCredentials: true })
       .then((res) => {
-        axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
-          .catch((userError) => {
-            console.log('Google current user fetch failed:', userError);
-            console.log('Using Google login response data instead');
-            return { data: res.data.user || res.data };
-          })
-          .then((userRes) => {
-            localStorage.setItem('user', JSON.stringify(userRes.data));
-            setMsg(res.data.message);
-            navigate('/');
-          });
+        console.log('Google login response:', res.data);
+        
+        // Use user data directly from Google login response
+        if (res.data.user) {
+          console.log('User data from Google login:', res.data.user);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          setMsg(res.data.message);
+          navigate('/');
+        } else {
+          setMsg('No user data received from Google login');
+        }
       })
       .catch((er) => {
         setMsg(er.response?.data?.message || 'login failed');

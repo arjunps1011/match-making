@@ -52,19 +52,16 @@ def login(request):
         print("ADMIN LOGIN →", {'redirect': '/admin_dashboard'})
         return Response({'redirect':'/admin_dashboard'})
         
-    
     user=User_Registration.objects.filter(email=email).first()
-
-    
-
     
     if user:
         if check_password(password,user.password):
             request.session['id']=user.id
             request.session.save()
             print(f"Session created for user {user.id}")
-            return Response({'redirect':'/'})
-            
+            # Return user data along with redirect
+            serializer = registerSerializer(user, many=False)
+            return Response({'redirect':'/', 'user': serializer.data})
         else:
             return Response('passwoord does not match',status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -217,7 +214,10 @@ def google_login(request):
         request.session['id']=user.id
         request.session.save()
         print(user.id)
-        return Response({'message': 'login successfully!'})
+        # Return user data along with message
+        serializer = registerSerializer(user, many=False)
+        print(serializer.data)
+        return Response({'message': 'login successfully!', 'user': serializer.data})
     else:
         return Response({'message': 'user not found'},status=status.HTTP_400_BAD_REQUEST)
 

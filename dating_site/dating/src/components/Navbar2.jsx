@@ -18,8 +18,10 @@ function Navbar2() {
 
   useEffect(() => {
    let user_data=localStorage.getItem('user')
-   if (user != null) {
+   if (user_data != null) {
     setUser(JSON.parse(user_data))
+    console.log(user);
+    
    }
   }, [])
 
