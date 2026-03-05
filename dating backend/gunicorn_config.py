@@ -1,16 +1,18 @@
 import multiprocessing
 import os
 
-# Balanced for stability and performance
-workers = 2
+# Optimized for performance
+workers = multiprocessing.cpu_count() * 2 + 1
 worker_class = 'gevent'
-worker_connections = 500
-timeout = 120
-keepalive = 2
-max_requests = 1000
-max_requests_jitter = 100
+worker_connections = 1000
+timeout = 60
+keepalive = 5
+max_requests = 2000
+max_requests_jitter = 200
 preload_app = True
 
-# Stable connection handling
+# Performance optimizations
 bind = f"0.0.0.0:{os.environ.get('PORT', 8000)}"
-backlog = 1024
+backlog = 2048
+max_worker_memory = 200  # MB
+worker_tmp_dir = '/dev/shm'  # Use RAM for temp files

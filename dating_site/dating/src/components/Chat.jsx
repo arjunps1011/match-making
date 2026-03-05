@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Navbar2 from './Navbar2';
 import style from '../assets/css/chat.module.css';
 import videoStyle from '../assets/css/videocall.module.css';
@@ -325,7 +325,7 @@ useEffect(() => {
           setIncomingCall(res.data.call);
         }
       }).catch(()=>{});
-    }, 5000);
+    }, 15000); 
     return () => clearInterval(interval);
   }, [currentuser, incomingCall, currentCall, outgoingCall]);
 
@@ -347,7 +347,7 @@ useEffect(() => {
           setOutgoingCall(null);
         }
       }).catch(() => setOutgoingCall(null));
-    }, 3000);
+    }, 10000); // Changed from 3000 to 10000 (10 seconds)
     return () => clearInterval(interval);
   }, [outgoingCall]);
 
@@ -357,7 +357,7 @@ useEffect(() => {
       axios.post(`${import.meta.env.VITE_API_URL}/get_chats/`, { otheruserid }, { withCredentials: true })
         .then(res => setAllmessage(res.data))
         .catch(()=>{});
-    }, 5000);
+    }, 15000); // Changed from 5000 to 15000 (15 seconds)
     return () => clearInterval(interval);
   }, [otheruserid]);
 
@@ -373,12 +373,12 @@ useEffect(() => {
       .then(res => setUserlist(res.data));
   }, []);
 
-  const send_message = (e) => {
+  const send_message = useCallback((e) => {
     e.preventDefault();
     if (!message.trim() || !otheruserid) return;
     axios.post(`${import.meta.env.VITE_API_URL}/chat/`, { otheruserid, message }, { withCredentials: true })
       .then(() => setMessage(''));
-  };
+  }, [message, otheruserid]);
 
   const startCall = (type) => {
     if (!currentuser || !otheruserid) {
@@ -438,7 +438,7 @@ useEffect(() => {
     .catch(() => setCurrentCall(null));
   };
 
-  const makeLinksClickable = (text) => {
+  const makeLinksClickable = useCallback((text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, index) => {
       if (urlRegex.test(part)) {
@@ -446,7 +446,7 @@ useEffect(() => {
       }
       return part;
     });
-  };
+  }, []);
 
   const check_premium = (e, otheruserid) => {
     e.preventDefault();
