@@ -17,7 +17,7 @@ function Navbar2() {
   let [user, setUser] = useState(null)
 
   useEffect(() => {
-   user_data=localStorage.getItem('user')
+   let user_data=localStorage.getItem('user')
    if (user != null) {
     setUser(JSON.parse(user_data))
    }
