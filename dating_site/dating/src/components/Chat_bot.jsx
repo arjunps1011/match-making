@@ -27,7 +27,7 @@ function ChatBot() {
                 setChatHistory(prev => [...prev, { sender: 'bot', message: reply }]);
             })
             .catch((err) => {
-                alert('error')
+                
                 console.log(err)
             })
 

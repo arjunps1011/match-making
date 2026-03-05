@@ -11,6 +11,7 @@ import Navbar2 from './Navbar2';
 function Register() {
     let navigate = useNavigate()
     let [user, setUser] = useState({ name: '', email: '', phone: '', gender: '', password: '' });
+    const [msg,setMsg]=useState('')
 
     function update(e) {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -22,11 +23,11 @@ function Register() {
             .then((res) => { alert('sucess'), navigate('/Otp') })
             .catch((er) => {
                 if (er.response) {
-                    alert(er.response.data.message)
+                    setMsg(er.response.data.message)
                     console.log(er)
                 }
                 else {
-                    alert('submission failed')
+                    setMsg('submission failed')
                     console.log(er)
                 }
             })
@@ -55,6 +56,11 @@ function Register() {
     }
     return (
         <div className={`container-fluid ${style.containerFluid}`}>
+            {msg && (
+                <div className={style.success_message}>
+                    <p>{msg}</p>
+                </div>
+            )}
             <div className={style.navbar}>
                 <Navbar2/>
             </div>
@@ -67,7 +73,7 @@ function Register() {
                         <Form onSubmit={submit}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter email" name='name' onChange={update} className={style.input} />
+                                <Form.Control type="text" placeholder="Enter your name" name='name' onChange={update} className={style.input} />
                                 <Form.Text className="text-muted">
                                 </Form.Text>
                             </Form.Group>
@@ -81,7 +87,7 @@ function Register() {
 
                             <Form.Group className="mb-3" controlId="formBasicEmail2">
                                 <Form.Label>Phone number</Form.Label>
-                                <Form.Control type="number" placeholder="Enter email" name='phone' onChange={update} className={style.input} />
+                                <Form.Control type="number" placeholder="Enter phone number" name='phone' onChange={update} className={style.input} />
                                 <Form.Text className="text-muted">
                                 </Form.Text>
                             </Form.Group>

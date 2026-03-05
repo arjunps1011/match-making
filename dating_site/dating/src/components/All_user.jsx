@@ -24,7 +24,8 @@ function All_user() {
         setMsg('');
       })
       .catch(() => {
-        alert('fetching fsiled');
+        console.log();
+        ('fetching fsiled');
       });
   }
 
@@ -76,13 +77,15 @@ function All_user() {
   function deleteuser(id) {
     axios.delete(`${import.meta.env.VITE_API_URL}/delete_user/${id}/`)
       .then((res) => {
-        alert(res.data.message);
+        
+        setMsg(res.data.message);
       })
       .catch((er) => {
         if (er.response) {
-          alert(er.response.data.message);
+          setMsg(er.response.data.message);
         } else {
-          alert('User deletion failed');
+          console.log();
+          setMsg('User deletion failed');
         }
       });
   }

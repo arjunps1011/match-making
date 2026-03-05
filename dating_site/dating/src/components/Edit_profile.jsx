@@ -15,8 +15,9 @@ function Edit_profile() {
     let [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     let [croppedImage, setCroppedImage] = useState(null);
     let [updatedetails, setUpdate] = useState({ name: '', username: '', email: '', gender: '', phone: '', })
-    let [hobby,setHobby]=useState('')
-    let [hobies,setHobies]=useState([])
+    let [hobby, setHobby] = useState('')
+    let [hobies, setHobies] = useState([])
+    const [msg,setMsg]=useState('')
 
     const data = {
         name: updatedetails.name,
@@ -24,7 +25,7 @@ function Edit_profile() {
         email: updatedetails.email,
         gender: updatedetails.gender,
         phone: updatedetails.phone,
-       
+
     };
 
     function update(e) {
@@ -36,18 +37,22 @@ function Edit_profile() {
         const formData = new FormData();
 
         for (let key in data) {
-            if (data[key]){
-            formData.append(key, data[key]);
+            if (data[key]) {
+                formData.append(key, data[key]);
             }
         }
-        if (hobies.length>0){
+        if (hobies.length > 0) {
             formData.append('hobies', JSON.stringify(hobies))
         }
+        console.log('croppe image:', croppedImage);
+
 
         if (croppedImage) {
             fetch(croppedImage)
                 .then(res => res.blob())
+
                 .then(blob => {
+                    console.log("🔥 Blob created:", blob);
                     // Compress the cropped image blob
                     return imageCompression(blob, {
                         maxSizeMB: 0.5,
@@ -56,8 +61,13 @@ function Edit_profile() {
                     });
                 })
                 .then(compressedBlob => {
+
                     formData.append('profile', compressedBlob, 'profile.jpg');
-                    return axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, {withCredentials:true});
+                    for (let pair of formData.entries()) {
+                        console.log("🔥 FormData item:", pair[0], pair[1]);
+                    }
+
+                    return axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, { withCredentials: true });
                 })
                 .then((res) => {
                     alert('Profile updated successfully!');
@@ -78,7 +88,7 @@ function Edit_profile() {
                     }
                 });
         } else {
-            axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, {withCredentials:true})
+            axios.put(`${import.meta.env.VITE_API_URL}/edit_profile/`, formData, { withCredentials: true })
                 .then((res) => {
                     alert('Profile updated successfully!');
                     // Refresh user data after successful update
@@ -118,22 +128,8 @@ function Edit_profile() {
                 return;
             }
 
-            // Compress image
-            const options = {
-                maxSizeMB: 1,
-                maxWidthOrHeight: 800,
-                useWebWorker: true,
-            };
-            
-            imageCompression(file, options)
-                .then(compressedFile => {
-                    const url = URL.createObjectURL(compressedFile);
-                    setImageSrc(url);
-                })
-                .catch(error => {
-                    console.error('Error compressing image:', error);
-                    alert('Error processing image. Please try again.');
-                });
+            const url = URL.createObjectURL(file);
+            setImageSrc(url);
         }
     }
 
@@ -172,17 +168,17 @@ function Edit_profile() {
             const croppedDataUrl = canvas.toDataURL('image/png');
             setCroppedImage(croppedDataUrl);
         };
-  
-    }
-          function add_hobies(e){
-            e.preventDefault()
-            if (hobby !=''){
-            setHobies([...hobies,hobby.trim()])
-            setHobby('')
-            }
-        }
 
-   
+    }
+    function add_hobies(e) {
+        e.preventDefault()
+        if (hobby != '') {
+            setHobies([...hobies, hobby.trim()])
+            setHobby('')
+        }
+    }
+
+
 
 
     return (
@@ -282,12 +278,12 @@ function Edit_profile() {
                     </div>
 
                     <div className={style.hobbies_container}>
-                       <Form.Control type="text" name="hobies" placeholder="Select your hoobies" value={hobby}  onChange={(e)=>{setHobby(e.target.value)}}/>
+                        <Form.Control type="text" name="hobies" placeholder="Select your hoobies" value={hobby} onChange={(e) => { setHobby(e.target.value) }} />
                         <div className={style.button}>
-                            <Button variant="danger" onClick={(e)=>{add_hobies(e)}}>Add</Button>
+                            <Button variant="danger" onClick={(e) => { add_hobies(e) }}>Add</Button>
                         </div>
                         <div>
-                            {hobies.map((h)=>(
+                            {hobies.map((h) => (
                                 <div className={style.hobbies}>
                                     <p>{h}</p>
                                 </div>

@@ -17,6 +17,8 @@ function Self_profile() {
     function profile_data() {
         axios.get(`${import.meta.env.VITE_API_URL}/profile_view/`, { withCredentials: true })
             .then((res) => {
+                console.log('User data:', res.data);
+                console.log('Profile image URL:', res.data.profile);
                 setUser(res.data)
             })
             .catch((er) => {
@@ -65,7 +67,7 @@ function Self_profile() {
                             <p>Avatar</p>
                         </div>
                         <div className={style.profile_img}>
-                            <img src={user.profile ? `${import.meta.env.VITE_API_URL}${user.profile}` : '/default_profile.jpg'} alt="" style={{ width: '130px', borderRadius: '50%' }} />
+                            <img src={user.profile || `https://ui-avatars.com/api/?name=${user.name}&size=200`} alt="" style={{ width: '130px', height: '130px', objectFit: 'cover', borderRadius: '50%' }} />
                         </div>
                     </div>
                     <div className={style.name_info}>

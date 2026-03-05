@@ -27,6 +27,7 @@ function Finding_mate() {
     const navigate = useNavigate()
     let [allusers, setallusers] = useState([])
     let [show,setShow]=useState(false)
+    
 
 
     const femaleImages = [
@@ -98,7 +99,7 @@ function Finding_mate() {
             })
             .catch((er) => {
                 console.log(er)
-                alert('error')
+                sucessmsg('error')
             })
     }
    

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar2 from './Navbar2';
 import style from '../assets/css/chat.module.css';
+import videoStyle from '../assets/css/videocall.module.css';
 import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faVideo, faPhoneSlash, faMicrophone, faMicrophoneSlash, faVideoCamera, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +20,7 @@ function VideoCallPopup({ roomID, userID, userName, onClose }) {
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [permissionError, setPermissionError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [msg,setMsg]=useState('')
 
 
 
@@ -44,11 +46,11 @@ function VideoCallPopup({ roomID, userID, userName, onClose }) {
       } catch (error) {
         setPermissionError(true);
         if (error.name === 'NotAllowedError') {
-          alert('❌ Permission denied! Please allow camera and microphone access in your browser settings.');
+          setMsg('❌ Permission denied! Please allow camera and microphone access in your browser settings.');
         } else if (error.name === 'NotFoundError') {
-          alert('❌ No camera/microphone found! Please check your device.');
+          setMsg('❌ No camera/microphone found! Please check your device.');
         } else {
-          alert('❌ Cannot access camera/microphone. Please check permissions.');
+          setMsg('❌ Cannot access camera/microphone. Please check permissions.');
         }
       } finally {
         setIsLoading(false);
@@ -113,55 +115,25 @@ function VideoCallPopup({ roomID, userID, userName, onClose }) {
 
   if (permissionError) {
     return (
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        background: 'black',
-        color: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 10000,
-        padding: '20px',
-        textAlign: 'center'
-      }}>
+      <div className={videoStyle.error_overlay}>
+        {msg && (
+          <div className={videoStyle.success_message}>
+            <p>{msg}</p>
+          </div>
+        )}
         <h2>🔒 Permission Required</h2>
         <p>We need access to your camera and microphone for the video call.</p>
-        <div style={{marginTop: '20px', background: '#333', padding: '20px', borderRadius: '10px', maxWidth: '400px'}}>
+        <div className={videoStyle.fix_instructions}>
           <h4>How to fix:</h4>
           <p>1. Look for camera/microphone icon in your browser's address bar</p>
           <p>2. Click it and select "Allow"</p>
           <p>3. Refresh the page if needed</p>
         </div>
-        <div style={{marginTop: '30px', display: 'flex', gap: '10px'}}>
-          <button 
-            onClick={retryPermissions}
-            style={{
-              background: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '5px',
-              cursor: 'pointer'
-            }}
-          >
+        <div className={videoStyle.button_container}>
+          <button onClick={retryPermissions} className={videoStyle.retry_button}>
             🔄 Try Again
           </button>
-          <button 
-            onClick={handleEndCall}
-            style={{
-              background: '#f44336',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '5px',
-              cursor: 'pointer'
-            }}
-          >
+          <button onClick={handleEndCall} className={videoStyle.cancel_button}>
             ❌ Cancel Call
           </button>
         </div>
@@ -171,20 +143,7 @@ function VideoCallPopup({ roomID, userID, userName, onClose }) {
 
   if (isLoading) {
     return (
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        background: 'black',
-        color: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 9999
-      }}>
+      <div className={videoStyle.loading_overlay}>
         <h3>📞 Starting Video Call...</h3>
         <p>Requesting camera and microphone access</p>
         <p>Please allow permissions when prompted</p>
@@ -193,114 +152,37 @@ function VideoCallPopup({ roomID, userID, userName, onClose }) {
   }
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      background: 'black',
-      zIndex: 9999
-    }}>
-      <div style={{
-        width: '100%',
-        height: '100%',
-        position: 'relative',
-        background: '#1a1a1a'
-      }}>
+    <div className={videoStyle.video_container}>
+      <div className={videoStyle.video_wrapper}>
         <video
           ref={localVideoRef}
           autoPlay
           playsInline
           muted
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transform: 'scaleX(-1)'
-          }}
+          className={videoStyle.video_element}
         />
-        <div style={{
-          position: 'absolute',
-          top: '20px',
-          left: '20px',
-          background: 'rgba(0,0,0,0.7)',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '20px',
-          zIndex: 1000
-        }}>
-          <p style={{ margin: 0, fontWeight: 'bold' }}>In call as: {userName}</p>
-          <p style={{ margin: 0, fontSize: '12px', opacity: 0.8 }}>Room: {roomID}</p>
+        <div className={videoStyle.call_info}>
+          <p className={videoStyle.user_name}>In call as: {userName}</p>
+          <p className={videoStyle.room_id}>Room: {roomID}</p>
         </div>
-        <div style={{
-          position: 'absolute',
-          bottom: '30px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'rgba(0,0,0,0.8)',
-          padding: '15px 30px',
-          borderRadius: '50px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '15px',
-          zIndex: 1000,
-          minWidth: '300px'
-        }}>
+        <div className={videoStyle.controls}>
           <button
             onClick={toggleAudio}
-            style={{
-              background: isAudioMuted ? '#f44336' : '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '50%',
-              width: '50px',
-              height: '50px',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '18px'
-            }}
+            className={`${videoStyle.control_button} ${isAudioMuted ? videoStyle.inactive : videoStyle.active}`}
             title={isAudioMuted ? 'Unmute' : 'Mute'}
           >
             <FontAwesomeIcon icon={isAudioMuted ? faMicrophoneSlash : faMicrophone} />
           </button>
           <button
             onClick={toggleVideo}
-            style={{
-              background: isVideoOff ? '#f44336' : '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '50%',
-              width: '50px',
-              height: '50px',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '18px'
-            }}
+            className={`${videoStyle.control_button} ${isVideoOff ? videoStyle.inactive : videoStyle.active}`}
             title={isVideoOff ? 'Turn on camera' : 'Turn off camera'}
           >
             <FontAwesomeIcon icon={isVideoOff ? faVideoSlash : faVideoCamera} />
           </button>
           <button
             onClick={handleEndCall}
-            style={{
-              background: '#f44336',
-              color: 'white',
-              border: 'none',
-              borderRadius: '50%',
-              width: '55px',
-              height: '55px',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '20px'
-            }}
+            className={`${videoStyle.control_button} ${videoStyle.inactive}`}
             title="End call"
           >
             <FontAwesomeIcon icon={faPhoneSlash} />

@@ -12,6 +12,7 @@ import Footer from './Footer';
 function Login() {
   let navigate = useNavigate();
   let [user, Setuser] = useState({ email: '', password: '' });
+  const [msg,setMsg]=useState('')
 
   function update(e) {
     Setuser({ ...user, [e.target.name]: e.target.value });
@@ -19,20 +20,23 @@ function Login() {
 
   function submit(e) {
     e.preventDefault();
+    console.log('Submitting login:', user);
     axios.post(`${import.meta.env.VITE_API_URL}/`, user, { withCredentials: true })
       .then((res) => {
+        console.log('Login response:', res.data);
         axios.get(`${import.meta.env.VITE_API_URL}/current_user/`, { withCredentials: true })
           .then((userRes) => {
+            console.log('User data:', userRes.data);
             localStorage.setItem('user', JSON.stringify(userRes.data));
-            window.location.href = res.data.redirect;
+            navigate('/');
           });
       })
       .catch((er) => {
+        console.log('Login error:', er);
         if (er.response?.data?.message) {
-          alert(er.response.data.message);
+          setMsg(er.response.data.message);
         } else {
-          alert('login failed');
-          console.log(er);
+          setMsg('login failed');
         }
       });
   }
@@ -46,7 +50,7 @@ function Login() {
           .then((userRes) => {
             localStorage.setItem('user', JSON.stringify(userRes.data));
             alert(res.data.message);
-            window.location.href = '/';
+            navigate('/');
           });
       })
       .catch((er) => {
@@ -70,6 +74,11 @@ function Login() {
         </div>
        
         <div className={style.outer_wrapper}>
+          {msg && (
+            <div className={style.success_message}>
+              <p>{msg}</p>
+            </div>
+          )}
           <div className={style.wrapper}>
             <div className={style.form_container}>
               <div className={style.heading}>

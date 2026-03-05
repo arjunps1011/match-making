@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    padding: 0px;
+    background-color: #F0F0F0;
+    font-family: 'Nunito', sans-serif;
+}
+
+.outer_wrapper {
+    background-color: white;
+    padding: 20px;
+    border-radius: 40px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.heading {
+    text-align: center;
+    padding-bottom: 15px;
+    font-size: 25px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    color: #333333;
+}
+
+.form input {
+    width: 100%;
+    background-color: #e7edf2;
+    min-width: 300px;
+    max-width: 100%;
+}
+
+.form button {
+    background-color: #333333;
+    color: white;
+    border: none;
+}
+
+.form button:hover {
+    background-color: #87CEFA;
+    border: #333333;
+}
+
+.error_message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.success_message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 320px;
+  background: white;
+  border-left: 6px solid #ff6b9d;
+  border-radius: 12px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 28px rgba(255, 107, 157, 0.25);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #2c3e50;
+  z-index: 9999;
+}
+
+.success_message p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+    .outer_wrapper {
+        padding: 10px;
+        padding: 20px;
+    }
+}

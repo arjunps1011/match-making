@@ -12,6 +12,7 @@ function Otp() {
   let [otp, setOtp] = useState({ otp: 'otp' })
   let [message,setMessage]=useState()
   
+  
 
   function update(e) {
     setOtp({ ...otp, [e.target.name]: e.target.value })
@@ -28,11 +29,11 @@ function Otp() {
       })
       .catch((er) => {
         if (er.response) {
-          alert(er.response.data.message)
+          setMessage(er.response.data.message)
           console.log(er)
         }
         else {
-          alert('submission failed')
+          setMessage('submission failed')
           console.log(er)
         }
       })

@@ -7,7 +7,7 @@
   width: 220px;
   background: #ffffff;
   border-right: 1px solid #e6e6e6;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   height: 100vh;
   position: fixed;
   top: 0;
@@ -20,79 +20,148 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #222;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   letter-spacing: 0.3px;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e83e8c;
 }
 
 .sidebar a {
   color: #555;
   font-weight: 500;
   font-size: 1rem;
-  padding: 10px 12px;
+  padding: 12px 16px;
   display: block;
   border-radius: 8px;
   margin-bottom: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
+  border-left: 3px solid transparent;
 }
 
 .sidebar a:hover {
   color: #e83e8c;
   background: rgba(232, 62, 140, 0.1);
+  border-left: 3px solid #e83e8c;
+  transform: translateX(5px);
 }
 
 .sidebar a::after {
   content: '';
   position: absolute;
-  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 0;
+  width: 0;
+  border-left: 6px solid #e83e8c;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar a:hover::after {
+  opacity: 1;
+}
+
+/* Enhanced Mobile Navbar styling to match Navbar2 */
+.navbar_mobile {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e6e6e6;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 14px 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.brand_mobile {
+  font-size: 1.3rem !important;
+  font-weight: 700;
+  color: #222 !important;
+  letter-spacing: 0.3px;
+  transition: color 0.3s ease;
+}
+
+.brand_mobile:hover {
+  color: #e83e8c !important;
+}
+
+.navbar_toggle {
+  border: 1px solid rgba(0,0,0,.1) !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.navbar_toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25) !important;
+}
+
+.offcanvas {
+  width: 250px !important;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.offcanvas_header {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e6e6e6 !important;
+  padding: 1rem !important;
+}
+
+.offcanvas_title {
+  font-weight: 700 !important;
+  color: #222 !important;
+  font-size: 1.25rem !important;
+}
+
+.offcanvas .btn-close {
+  filter: none;
+  opacity: 0.5;
+}
+
+.offcanvas .btn-close:hover {
+  opacity: 0.75;
+}
+
+.offcanvas_body {
+  padding: 0 !important;
+  background: #ffffff !important;
+}
+
+.offcanvas_body a {
+  color: #555 !important;
+  font-weight: 500;
+  padding: 12px 16px;
+  display: block;
+  border-radius: 0;
+  margin: 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 0;
+  background: transparent;
+  position: relative;
+}
+
+.offcanvas_body a::after {
+  content: '';
+  position: absolute;
   bottom: 0;
-  height: 2px;
+  left: 0;
   width: 0%;
+  height: 2px;
   background-color: #e83e8c;
   transition: width 0.3s ease;
 }
 
-.sidebar a:hover::after {
-  width: 100%;
-}
-
-/* Mobile Offcanvas styling */
-.offcanvas {
-  width: 250px !important;
-  background-color: #ffffff;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-}
-
-.offcanvas .offcanvas-header {
-  border-bottom: 1px solid #e6e6e6;
-}
-
-.offcanvas .offcanvas-title {
-  font-weight: 700;
-  color: #222;
-}
-
-.offcanvas .btn-close {
-  filter: invert(0.2);
-}
-
-.offcanvas .offcanvas-body {
-  padding: 0;
-}
-
-.offcanvas .offcanvas-body a {
-  color: #555;
-  font-weight: 500;
-  padding: 12px 16px;
-  display: block;
-  border-radius: 6px;
-  margin: 4px 0;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.offcanvas .offcanvas-body a:hover {
-  color: #e83e8c;
+.offcanvas_body a:hover {
+  color: #e83e8c !important;
   background: rgba(232, 62, 140, 0.1);
+  transform: none;
+  box-shadow: none;
+}
+
+.offcanvas_body a:hover::after {
+  width: 100%;
 }

@@ -11,6 +11,7 @@ function Complaints() {
     let [dataContain, setDatacontain] = useState([])
     let [state, setState] = useState('')
     let [allcomplaints, setAllcomplaints] = useState([])
+    let [msg,setMsg]=useState('')
 
 
     function alluser_complaint(e) {
@@ -21,7 +22,8 @@ function Complaints() {
                 setAllcomplaints(res.data)
             })
             .catch((er) => {
-                alert('fetching failed')
+                console.log('fetching failed');
+                
             })
         setState('allusercomplaints')
     }
@@ -36,7 +38,7 @@ function Complaints() {
                 console.log(res.data)
             })
             .catch((er) => {
-                alert('fetching failed')
+               
                 console.log(er)
             })
         setState('allcomplaints')
@@ -49,15 +51,15 @@ function Complaints() {
         e.preventDefault()
         axios.post(`${import.meta.env.VITE_API_URL}/send_reply/`, complaint)
             .then((res) => {
-                alert(res.data.message)
+                setMsg(res.data.message)
                 setComplaints(prev => prev.filter(c => c.id !== complaint.id));
             })
             .catch((er) => {
                 if (er.response.data) {
-                    alert(er.response.data.message)
+                    setMsg(er.response.data.message)
                 }
                 else {
-                    alert('response failed')
+                    setMsg('response failed')
                 }
             })
     }
@@ -83,6 +85,11 @@ function Complaints() {
                             <button onClick={(e) => alluser_complaint(e)}>All Complaints</button>
 
                         </div>
+                        {msg && (
+                            <div className={style.success_message}>
+                                <p>{msg}</p>
+                            </div>
+                        )}
                         <div className={style.complaint_wrapper}>
                             {
                                 dataContain.map((complaint) => (

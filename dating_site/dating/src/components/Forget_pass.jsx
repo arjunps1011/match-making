@@ -9,11 +9,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 function Otp() {
   let navigate=useNavigate()
   let [email,setMail]=useState({email:''})
   let [message,setMesage]=useState('')
   let [error,setError]=useState('')
+  
 
   function update(e){
     setMail({...email,[e.target.name]:e.target.value})
@@ -29,14 +31,10 @@ function Otp() {
       
    })
     .catch((er)=>{
-      if (er.response) {
+       (er.response) 
       setError(er.response.data.message)
       console.log(er)
-      }
-      else{
-        alert('submission failed')
-        console.log(er)
-      }
+    
     })
   }
   

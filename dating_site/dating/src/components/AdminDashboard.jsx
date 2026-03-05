@@ -18,10 +18,12 @@ function AdminDashboard() {
       })
       .catch((er) => {
         if (er.response.data) {
-          alert(er.response.data.message)
+          console.log();
+          (er.response.data.message)
         }
         else {
-          alert('fecthing falied')
+          console.log();
+          ('fecthing falied')
         }
       })
   }

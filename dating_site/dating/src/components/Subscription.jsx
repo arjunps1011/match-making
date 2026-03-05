@@ -8,6 +8,9 @@ import Navbar2 from './Navbar2'
 
  
 function subscription() {
+
+  const [msg,setMsg]=useState('')
+
   function Payment(){
               axios.post(`${import.meta.env.VITE_API_URL}/payment/`,{amount:600},{withCredentials:true})
               .then((response)=>{
@@ -25,7 +28,7 @@ function subscription() {
       },
       theme: { color: "#1E88E5" },
       handler: function(res) {
-        alert("Payment successful!");
+        setMsg("Payment successful!");
       }
     };
         const rzp = new window.Razorpay(options);
@@ -33,10 +36,10 @@ function subscription() {
   })
   .catch((er)=>{
     if (er.response){
-      alert(er.response.data.message)
+      setMsg(er.response.data.message)
     }
     else{
-      alert(er)
+      setMsg(er)
     }
   })
   
@@ -45,6 +48,11 @@ function subscription() {
    
   return (
     <div className='container_fluid'>
+      {msg && (
+        <div className={style.success_message}>
+          <p>{msg}</p>
+        </div>
+      )}
       <div className={style.container}>
         <Navbar2/>
         <div className={style.lottie1}>

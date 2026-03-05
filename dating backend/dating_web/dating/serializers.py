@@ -2,19 +2,17 @@ from rest_framework import serializers
 from .models import *
 
 class registerSerializer(serializers.ModelSerializer):
-    profile = serializers.SerializerMethodField()
-    
-    def get_profile(self, obj):
-        if obj.profile:
-            url = str(obj.profile)
-            if 'cloudinary.com' in url:
-                return url.replace('/image/upload/', '/image/upload/w_200,h_200,c_fill,q_auto,f_auto/')
-            return url
-        return None
-    
     class Meta:
         model=User_Registration
         fields='__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        if instance.profile:
+            data['profile'] = instance.profile.url
+
+        return data
 
 class complaintSerializer(serializers.ModelSerializer):
     user_name = serializers.CharField(source='User.name', read_only=True)
