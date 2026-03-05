@@ -44,6 +44,14 @@ function subscription() {
   })
   
               }
+   useEffect(()=>{
+          if(msg){
+            const timer=setTimeout(() => {
+              setMsg('')
+            }, 4000);
+            return () => clearTimeout(timer);
+          }
+      })
   
    
   return (

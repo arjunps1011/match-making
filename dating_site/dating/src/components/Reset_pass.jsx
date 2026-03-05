@@ -42,6 +42,15 @@ function BasicExample() {
         })
 
     }
+     useEffect(()=>{
+          if(msg){
+            const timer=setTimeout(() => {
+              setMsg('')
+            }, 4000);
+            return () => clearTimeout(timer);
+          }
+      })
+    
 
   return (
     <div className={style.container}>

@@ -17,6 +17,8 @@ function Register() {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
 
+    
+
     function submit(e) {
         e.preventDefault()
         axios.post(`${import.meta.env.VITE_API_URL}/register/`, user, { withCredentials: true })
@@ -33,6 +35,16 @@ function Register() {
             })
         
     }
+    
+       useEffect(()=>{
+          if(msg){
+            const timer=setTimeout(() => {
+              setMsg('')
+            }, 4000);
+            return () => clearTimeout(timer);
+          }
+      })
+  
     function handleSuccess(credentialResponse){
                 console.log(credentialResponse)
 

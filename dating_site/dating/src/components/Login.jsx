@@ -54,6 +54,15 @@ function Login() {
           setMsg('Login failed');
         }
       });
+
+       useEffect(()=>{
+          if(msg){
+            const timer=setTimeout(() => {
+              setMsg('')
+            }, 4000);
+            return () => clearTimeout(timer);
+          }
+      })
   }
 
   function handleSuccess(credentialResponse){

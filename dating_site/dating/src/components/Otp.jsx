@@ -43,6 +43,7 @@ function Otp() {
         const  interva=setTimeout(() => {
           setMessage('')
         }, 3000);
+        return ()=>clearTimeout(interva);
       },[message])
   return (
 
