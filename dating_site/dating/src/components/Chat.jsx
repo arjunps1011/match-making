@@ -325,7 +325,7 @@ useEffect(() => {
           setIncomingCall(res.data.call);
         }
       }).catch(()=>{});
-    }, 15000); 
+    }, 4000); // Changed from 15000 to 4000 (4 seconds)
     return () => clearInterval(interval);
   }, [currentuser, incomingCall, currentCall, outgoingCall]);
 
@@ -357,7 +357,7 @@ useEffect(() => {
       axios.post(`${import.meta.env.VITE_API_URL}/get_chats/`, { otheruserid }, { withCredentials: true })
         .then(res => setAllmessage(res.data))
         .catch(()=>{});
-    }, 15000); // Changed from 5000 to 15000 (15 seconds)
+    }, 4000); // Changed from 15000 to 4000 (4 seconds)
     return () => clearInterval(interval);
   }, [otheruserid]);
 
