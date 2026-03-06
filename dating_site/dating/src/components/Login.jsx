@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
@@ -54,16 +54,16 @@ function Login() {
           setMsg('Login failed');
         }
       });
-
-       useEffect(()=>{
-          if(msg){
-            const timer=setTimeout(() => {
-              setMsg('')
-            }, 4000);
-            return () => clearTimeout(timer);
-          }
-      })
   }
+
+  useEffect(() => {
+    if(msg){
+      const timer = setTimeout(() => {
+        setMsg('')
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [msg]);
 
   function handleSuccess(credentialResponse){
     if (credentialResponse?.credential) {
