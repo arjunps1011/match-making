@@ -25,7 +25,13 @@ function Login() {
     console.log('API URL:', import.meta.env.VITE_API_URL);
     console.log('Sending login data:', user);
     
-    axios.post(`${import.meta.env.VITE_API_URL}/login/`, user, { withCredentials: true })
+    // Test if backend is reachable first
+    axios.get(`${import.meta.env.VITE_API_URL}/`)
+      .then(() => {
+        console.log('Backend is reachable');
+        // Now try login
+        return axios.post(`${import.meta.env.VITE_API_URL}/login/`, user, { withCredentials: true });
+      })
       .then((res) => {
         console.log('Login response:', res.data);
         setMsg('Login successful!');
@@ -48,10 +54,12 @@ function Login() {
       .catch((er) => {
         console.log('Login error:', er);
         console.log('Error response:', er.response);
-        if (er.response?.data?.message) {
+        if (er.code === 'ERR_NETWORK') {
+          setMsg('Cannot connect to server. Is Django running on port 8000?');
+        } else if (er.response?.data?.message) {
           setMsg(er.response.data.message);
         } else {
-          setMsg('Login failed');
+          setMsg('Login failed: ' + (er.message || 'Unknown error'));
         }
       });
   }

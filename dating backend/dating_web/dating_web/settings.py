@@ -104,9 +104,9 @@ RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-# Session settings for localhost development
-SESSION_COOKIE_SECURE = False  # Set to False for localhost
-SESSION_COOKIE_SAMESITE = 'Lax'  # Changed from 'None' to 'Lax' for localhost
+# Session settings for production deployment
+SESSION_COOKIE_SECURE = True  # Required for HTTPS production
+SESSION_COOKIE_SAMESITE = 'None'  # Required for cross-origin
 SESSION_COOKIE_HTTPONLY = False  # Allow JS access
 SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_NAME = 'sessionid'  # Explicit session cookie name
@@ -116,8 +116,8 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 # CSRF settings to match session settings
-CSRF_COOKIE_SECURE = False  # Set to False for localhost
-CSRF_COOKIE_SAMESITE = 'Lax'  # Changed from 'None' to 'Lax' for localhost
+CSRF_COOKIE_SECURE = True  # Required for HTTPS production
+CSRF_COOKIE_SAMESITE = 'None'  # Required for cross-origin
 CSRF_COOKIE_HTTPONLY = False
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
