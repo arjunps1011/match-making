@@ -93,13 +93,16 @@ def register(request):
     request.session['phone']=phone
     request.session['gender']=gender
     request.session['password']=make_password(password)
-    send_mail(
-        subject='Your otp for registration',
-        message=f'your otp is {otp} it is only valid for 10 minutes',
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[email],
-        fail_silently=False
-          )
+    try:
+        send_mail(
+            subject='Your otp for registration',
+            message=f'your otp is {otp} it is only valid for 10 minutes',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=True
+        )
+    except Exception as e:
+        print(f"Email sending failed: {e}")
     print("Session after register:", dict(request.session))
     return Response({'message':f'an otp has been send to  your email {user_email}'})
 
@@ -152,14 +155,17 @@ def forgetpass(request):
     <p><a href="{reset_link}">{reset_link}</a></p>
     <p>If you did not request a password reset, you can ignore this email.</p>
     """
-    send_mail(
-        subject='For resetting password',
-        message='',
-        html_message=message,
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[user_mail],
-        fail_silently=False
-          )
+    try:
+        send_mail(
+            subject='For resetting password',
+            message='',
+            html_message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[user_mail],
+            fail_silently=True
+        )
+    except Exception as e:
+        print(f"Email sending failed: {e}")
     return Response({'message':f'A password reset link has been sent to {user_mail}. Please check your inbox.'})
 
 @api_view(['put'])
@@ -378,14 +384,18 @@ If you have any further questions, feel free to reply to this email.</p>
 <p>Thank you for your patience and understanding.  
 – Team Match Making</p>
     """
-    send_mail(
-        subject='Response to Your Complaint on Match Making App',
-        message='',
-        html_message=message,
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[email],
-        fail_silently=False
-    )
+    try:
+        send_mail(
+            subject='Response to Your Complaint on Match Making App',
+            message='',
+            html_message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=True  # Changed to True to prevent crashes
+        )
+    except Exception as e:
+        print(f"Email sending failed: {e}")
+        # Continue without failing
     complaint=Complaints.objects.filter(id=id).first()
     complaint.resolved = True 
     complaint.save()
@@ -406,11 +416,49 @@ def revenue_flow_chart(request):
     last_week = today - timedelta(days=7)
     revnue=User_Registration.objects.filter(premium='true').count()*money
     total_complaints=Complaints.objects.all().count()
-    total_users=User_Registration.objects.all().count()
+    total_users=User_Registration.objects.all().count() 
+    print(total_users)
     new_users=User_Registration.objects.filter(date_joined__gte=last_week).count()
     premium_users=User_Registration.objects.filter(premium='true').values('id','date_joined')
     if not premium_users:
-        return Response({'message':'No Users Found'})
+        # Generate empty charts
+        plt.figure(figsize=(8,5))
+        plt.plot([], [], marker='*', color='blue', linewidth=2)
+        plt.title('Premium Users Growth')
+        plt.xlabel('months')
+        plt.ylabel('Users')
+        plt.text(0.5, 0.5, 'No premium users yet', ha='center', va='center', transform=plt.gca().transAxes, fontsize=12, color='gray')
+        plt.tight_layout()
+        
+        buffer=io.BytesIO()
+        plt.savefig(buffer,format='png')
+        buffer.seek(0)
+        saved_image=buffer.getvalue()
+        buffer.close()
+        graph = base64.b64encode(saved_image).decode('utf-8')
+        
+        # Empty pie chart
+        plt.figure(figsize=(6,6))
+        plt.pie([1], labels=['No data'], colors=['lightgray'], autopct='', startangle=90)
+        plt.title('User Subscription Distribution')
+        plt.text(0, 0, 'No subscription data', ha='center', va='center', fontsize=12, color='gray')
+        plt.tight_layout()
+        
+        buffer=io.BytesIO()
+        plt.savefig(buffer,format='png')
+        buffer.seek(0)
+        pie=buffer.getvalue()
+        buffer.close()
+        pie_graph = base64.b64encode(pie).decode('utf-8')
+        
+        return Response({
+            'image': graph,
+            'revnue': revnue,
+            'total_complaints': total_complaints,
+            'total_users': total_users,
+            'new_users': new_users,
+            'pie': pie_graph
+        })
     df=pd.DataFrame(premium_users)
     df['date_joined']=pd.to_datetime(df['date_joined'])
     df['month'] = df['date_joined'].dt.to_period('M')

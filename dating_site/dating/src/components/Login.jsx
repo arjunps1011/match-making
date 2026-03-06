@@ -25,13 +25,8 @@ function Login() {
     console.log('API URL:', import.meta.env.VITE_API_URL);
     console.log('Sending login data:', user);
     
-    // Test if backend is reachable first
-    axios.get(`${import.meta.env.VITE_API_URL}/`)
-      .then(() => {
-        console.log('Backend is reachable');
-        // Now try login
-        return axios.post(`${import.meta.env.VITE_API_URL}/login/`, user, { withCredentials: true });
-      })
+    // Direct login without testing root URL
+    axios.post(`${import.meta.env.VITE_API_URL}/login/`, user, { withCredentials: true })
       .then((res) => {
         console.log('Login response:', res.data);
         setMsg('Login successful!');

@@ -21,6 +21,8 @@ function All_user() {
     axios.get(`${import.meta.env.VITE_API_URL}/view_users/`)
       .then((res) => {
         setUser(res.data);
+        console.log(res.data);
+        
         setMsg('');
       })
       .catch(() => {
@@ -45,6 +47,8 @@ function All_user() {
       .catch((er) => {
         console.log(er);
         setMsg(er.response.data.msg);
+        setHaspremium([]);
+        setFiltertype('premium');
       });
   }
 
@@ -155,7 +159,7 @@ function All_user() {
                         <td>
                           <div className={style.user}>
                             <div className={style.image}>
-                              <img src={`${import.meta.env.VITE_API_URL}${user.profile}`} alt="Profile" />
+                              <img src={`${user.profile}`} alt="Profile" />
                             </div>
                             <div className={style.details}>
                               <div className={style.name}>

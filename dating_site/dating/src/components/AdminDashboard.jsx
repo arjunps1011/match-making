@@ -15,6 +15,8 @@ function AdminDashboard() {
     axios.get(`${import.meta.env.VITE_API_URL}/revenue_flow_chart/`)
       .then((res) => {
         setData(res.data)
+        console.log('data',res.data);
+        
       })
       .catch((er) => {
         if (er.response.data) {
